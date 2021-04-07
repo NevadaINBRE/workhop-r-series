@@ -33,17 +33,67 @@ This workshop serves as a gentle introduction to programming with R, with a focu
 
 **Materials**
 
+- Computer with `R` and `RStudio` installed
+- Internet connection (optional)
+
 **Objectives**
+
+Students will be able to:
+
+- open the R command line interface (CLI)
+- access the built-in help docs
+- perform basic arithmetic using R
+- store data in variables
+- list the environment variables
+- understand the basic data types in R
+- convert between the different data types
+- understand and use the basic data structures in R
+- access rows, columns, and elements of matrices and data frames
+- read data from a `csv` into a data frame
+- fit simple linear models
+- summarize data and linear models
+- understand the similarities and differences between R, Python, Julia, and other programming languages
 
 **Background Knowledge**
 
+Students should know:
+
+- how to operate a computer
+- arithmetic and order of operations
+- basic statistics (summary statistics, simple linear models)
+
 **Direct Instruction**
+
+| Activity | Duration |
+|:---------|:---------------|
+| Introductions and overview | 10 minutes |
+| Opening the R command line | 2 minutes |
+| Accessing the built-in help docs | 2 minutes |
+| Doing basic arithmetic | 5 minutes |
+| Working with variables: storing, viewing, and removing variables | 4 minutes |
+| Introduce different data types: types, storage, and class  | 10 minutes |
+| Working with different data types: coercion and conversion | 10 minutes |
+| Overview of data structures in R | 10 minutes |
+| Working with data structures: vectors and matrices | 10 minutes |
+| Working with data structures: lists | 10 minutes |
+| Working with data structures: data frames | 10 minutes |
+| Reading data from a file | 10 minutes |
+| Fitting a linear model | 15 minutes |
+| Summarizing data frames and models | 10 minutes |
+| Discussing R compared to other programming languages | 15 minutes |
 
 **Student Practice**
 
+- TBD
+
 **Closure**
 
+- Recap the topics discussed
+- Brief overview of the next session
+
 **Assessment**
+
+- TBD
 
 ## Introduction to R pt. 2
 
