@@ -105,7 +105,21 @@ This workshop introduces scripting in R, including control flow, writing functio
 
 **Materials**
 
+- Computer with `R` and `RStudio` installed
+- Internet connection (optional)
+
 **Objectives**
+
+Students will be able to:
+
+- open up RStudio and identify key parts of the IDE
+- create, open, and save R scripts
+- run R scripts line by line or all at once
+- write functions and understand when to use them
+- use control flow to execute complex tasks
+- install and load libraries
+- understand the differences between CRAN, Bioconductor, and GitHub
+- 
 
 **Background Knowledge**
 
@@ -113,9 +127,13 @@ This workshop introduces scripting in R, including control flow, writing functio
 
 **Student Practice**
 
+- TBD
+
 **Closure**
 
 **Assessment**
+
+- TBD
 
 ## Reproducible Data Science
 
@@ -127,6 +145,9 @@ We will discuss the problems we commonly see and introduce what it means to cond
 
 **Materials**
 
+- Computer with `R` and `RStudio` installed
+- Internet connection (optional)
+
 **Objectives**
 
 **Background Knowledge**
@@ -135,9 +156,13 @@ We will discuss the problems we commonly see and introduce what it means to cond
 
 **Student Practice**
 
+- TBD
+
 **Closure**
 
 **Assessment**
+
+- TBD
 
 ## Tidy R
 
@@ -149,6 +174,8 @@ This will be a workshop fully devoted to data wrangling, including loading and c
 
 **Materials**
 
+
+
 **Objectives**
 
 **Background Knowledge**
@@ -157,9 +184,13 @@ This will be a workshop fully devoted to data wrangling, including loading and c
 
 **Student Practice**
 
+- TBD
+
 **Closure**
 
 **Assessment**
+
+- TBD
 
 ## Producing Pretty Graphs and Tables with `base`, `ggplot2`, and `kable`
 
@@ -179,6 +210,10 @@ In this workshop, we will go over some principles of the visual display of quant
 
 **Student Practice**
 
+- TBD
+
 **Closure**
 
 **Assessment**
+
+- TBD
