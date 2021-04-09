@@ -297,17 +297,48 @@ In this workshop, we will go over some principles of the visual display of quant
 
 **Materials**
 
+- Computer with `R` and `RStudio` installed
+- Internet connection
+
 **Objectives**
+
+Students will be able to
+
+- understand the basic principles of the visual display of quantitative information
+- produce clean and professional graphs using base `R`
+- produce clean and professional graphs using `ggplot2`
+- produce clean tables using `kable` and `kableExtra`
+- create clean documents using `Rmarkdown`
 
 **Background Knowledge**
 
+Students should know:
+
+- how to program with R or some other scripting language
+- how to navigate RStudio
+- basic markdown syntax
+- some LaTex or mathjax
+- how to search for additional information
+
 **Direct Instruction**
+
+| Activity                                                         | Duration   |
+|:-----------------------------------------------------------------|:-----------|
+| Introductions and overview                                       | 10 minutes |
+| Principles of the visual display of quantitative information     | 15 minutes |
+| Building up plots using base `R`                                 | 15 minutes |
+| Building up plots using `ggplot2`                                | 20 minutes |
+| Creating tables using `kable`                                    | 20 minutes |
+| Producing documents using `Rmarkdown`, `rticles`, and `bookdown` | 45 minutes |
 
 **Student Practice**
 
 - TBD
 
 **Closure**
+
+- Recap the topics discussed
+- Share resources for topics discussed
 
 **Assessment**
 
