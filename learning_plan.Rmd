@@ -4,6 +4,7 @@ author: "Alex Knudson"
 date: "4/6/2021"
 output: 
   html_document:
+    number_sections: true
     toc: true
     toc_float:
       collapsed: false
@@ -41,7 +42,7 @@ This workshop serves as a gentle introduction to programming with R, with a focu
 **Materials**
 
 - Computer with `R` and `RStudio` installed
-- Internet connection (optional)
+- Internet connection
 
 **Objectives**
 
@@ -116,7 +117,7 @@ This workshop introduces scripting in R, including control flow, writing functio
 **Materials**
 
 - Computer with `R` and `RStudio` installed
-- Internet connection (optional)
+- Internet connection
 
 **Objectives**
 
@@ -180,7 +181,7 @@ We will discuss the problems we commonly see and introduce what it means to cond
 **Materials**
 
 - Computer with `R` and `RStudio` installed
-- Internet connection (optional)
+- Internet connection
 
 **Objectives**
 
@@ -240,19 +241,47 @@ This will be a workshop fully devoted to data wrangling, including loading and c
 
 **Materials**
 
-
+- Computer with `R` and `RStudio` installed
+- Internet connection
 
 **Objectives**
 
+Students will be able to:
+
+- understand what "tidy" data is
+- understand and use the various tidyverse packages
+- read in data from various formats
+- clean data using the tidyverse
+- reshape wide data into long format, and long data into wide format
+
 **Background Knowledge**
 
+Students should know:
+
+- how to program with R or some other scripting language
+- how to navigate RStudio
+- how to access the help documentation in R
+
 **Direct Instruction**
+
+| Activity                                   | Duration   |
+|:-------------------------------------------|:-----------|
+| Introductions and overview                 | 10 minutes |
+| Introduction to tidy data                  | 10 minutes |
+| Into the tidyverse                         | 30 minutes |
+| Reading data from various formats          | 20 minutes |
+| Data wrangling - cleaning                  | 30 minutes |
+| Data wrangling - transforming and pivoting | 30 minutes |
+| Alternative methods                        | 15 minutes |
 
 **Student Practice**
 
 - TBD
 
 **Closure**
+
+- Recap the topics discussed
+- Share resources for topics discussed
 
 **Assessment**
 
