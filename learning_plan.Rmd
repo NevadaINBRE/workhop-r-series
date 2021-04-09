@@ -184,15 +184,47 @@ We will discuss the problems we commonly see and introduce what it means to cond
 
 **Objectives**
 
+Students will be able to:
+
+- understand the principles of reproducible [data] science
+- identify bad project management habits
+- organize a new project folder
+- write code that is human-readable
+- identify helpful libraries for data wrangling
+- understand and implement the principles of immutable data
+- create reports and other media using Rmarkdown
+- use GitHub to track project changes
+
 **Background Knowledge**
 
+Students should know:
+
+- scripting with R or a similar programming language
+- how to create directories and folders
+- basic git or a git GUI
+- basic [markdown syntax](https://www.markdownguide.org/cheat-sheet/)
+
 **Direct Instruction**
+
+| Activity                                                  | Duration   |
+|:----------------------------------------------------------|:-----------|
+| Introductions                                             |  5 minutes |
+| Code smells and project smells                            | 15 minutes |
+| Overview of reproducible data science                     | 15 minutes |
+| Project organization                                      | 20 minutes |
+| Writing *human* readable code (NOTE: don't be too clever) | 15 minutes |
+| Immutable data and data wrangling tools                   | 30 minutes |
+| Creating dynamic reports and documents                    | 30 minutes |
+| Tracking a project over time                              | 30 minutes |
 
 **Student Practice**
 
 - TBD
 
 **Closure**
+
+- Recap the topics discussed
+- Share resources for topics discussed
 
 **Assessment**
 
