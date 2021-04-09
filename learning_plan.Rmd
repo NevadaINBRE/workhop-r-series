@@ -2,7 +2,14 @@
 title: "Workshop Learning Plan"
 author: "Alex Knudson"
 date: "4/6/2021"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    toc_depth: 2
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -25,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction to R pt. 1
 
-This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. R basics will be covered, such as using the command line as a calculator, storing values in a variable, basic data structures (vector, matrix, list, data frame, etc.), and data types. We will show how to load basic data sets and access rows/columns, and summarize data. We will also cover some considerations when choosing R over another language, and the differences between CRAN, GitHub, and Bioconductor packages.
+This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. R basics will be covered, such as using the command line as a calculator, storing values in a variable, basic data structures (vector, matrix, list, data frame, etc.), and data types. We will show how to load basic data sets and access rows/columns, and summarize data with statistics and plots. We will also cover some considerations when choosing R over another language.
 
 | Date         | Time        | Location | Presenter(s)          |
 |:-------------|:------------|:---------|:----------------------|
@@ -52,6 +59,7 @@ Students will be able to:
 - read data from a `csv` into a data frame
 - fit simple linear models
 - summarize data and linear models
+- create simple plots of 1-D and 2-D data
 - understand the similarities and differences between R, Python, Julia, and other programming languages
 
 **Background Knowledge**
@@ -61,26 +69,28 @@ Students should know:
 - how to operate a computer
 - arithmetic and order of operations
 - basic statistics (summary statistics, simple linear models)
+- basic ideas of plots and charts
 
 **Direct Instruction**
 
-| Activity | Duration |
-|:---------|:---------------|
-| Introductions and overview | 10 minutes |
-| Opening the R command line | 2 minutes |
-| Accessing the built-in help docs | 2 minutes |
-| Doing basic arithmetic | 5 minutes |
-| Working with variables: storing, viewing, and removing variables | 4 minutes |
-| Introduce different data types: types, storage, and class  | 10 minutes |
-| Working with different data types: coercion and conversion | 10 minutes |
-| Overview of data structures in R | 10 minutes |
-| Working with data structures: vectors and matrices | 10 minutes |
-| Working with data structures: lists | 10 minutes |
-| Working with data structures: data frames | 10 minutes |
-| Reading data from a file | 10 minutes |
-| Fitting a linear model | 15 minutes |
-| Summarizing data frames and models | 10 minutes |
-| Discussing R compared to other programming languages | 15 minutes |
+| Activity                                                         | Duration   |
+|:-----------------------------------------------------------------|:-----------|
+| Introductions and overview                                       | 10 minutes |
+| Opening the R command line                                       |  2 minutes |
+| Accessing the built-in help docs                                 |  2 minutes |
+| Doing basic arithmetic                                           |  5 minutes |
+| Working with variables: storing, viewing, and removing variables |  4 minutes |
+| Introduce different data types: types, storage, and class        | 10 minutes |
+| Working with different data types: coercion and conversion       | 10 minutes |
+| Overview of data structures in R                                 | 10 minutes |
+| Working with data structures: vectors and matrices               | 10 minutes |
+| Working with data structures: lists                              | 10 minutes |
+| Working with data structures: data frames                        | 10 minutes |
+| Reading data from a file                                         | 10 minutes |
+| Fitting a linear model                                           | 15 minutes |
+| Summarizing data frames and models                               | 10 minutes |
+| Producing simple plots                                           | 10 minutes |
+| Discussing R compared to other programming languages             | 15 minutes |
 
 **Student Practice**
 
@@ -97,7 +107,7 @@ Students should know:
 
 ## Introduction to R pt. 2
 
-This workshop introduces scripting in R, including control flow, writing functions, installing/loading libraries, and file IO. We will go over the `-apply` family of functions (and maybe their `purrr` counterparts), simple graphs (with some ggplot2 examples), and good practices in R (style guide, organization, etc.)
+This workshop introduces scripting in R, including control flow, writing functions, and installing/loading libraries (and the differences between CRAN, GitHub, and Bioconductor packages). We will go over the `-apply` family of functions, simple graphs, and good practices in R (style guide, organization, etc.).
 
 | Date         | Time        | Location | Presenter(s)          |
 |:-------------|:------------|:---------|:----------------------|
@@ -115,21 +125,45 @@ Students will be able to:
 - open up RStudio and identify key parts of the IDE
 - create, open, and save R scripts
 - run R scripts line by line or all at once
-- write functions and understand when to use them
+- understand and use the `-apply` family of functions
 - use control flow to execute complex tasks
+- write functions and understand when to use them
 - install and load libraries
 - understand the differences between CRAN, Bioconductor, and GitHub
-- 
+- understand what a style guide is and why it is important
+- use good practices for writing and organizing code
 
 **Background Knowledge**
 
+Students should know:
+
+- how to open an application on a computer
+- the basic functions in R
+- the basic ideas of conditional statements
+
 **Direct Instruction**
+
+| Activity                                               | Duration   |
+|:-------------------------------------------------------|:-----------|
+| Introductions and overview                             | 10 minutes |
+| Getting acquainted with RStudio                        | 20 minutes |
+| Writing and running an Rscript                         |  5 minutes |
+| Using the `-apply` functions                           | 10 minutes |
+| Using control flow - loops, switches, and conditionals | 20 minutes |
+| Writing functions                                      | 15 minutes |
+| Installing and loading libraries (NOTE: namespaces?)   | 20 minutes |
+| Creating a new project in RStudio                      | 15 minutes |
+| R Best practices and style                             | 30 minutes |
+
 
 **Student Practice**
 
 - TBD
 
 **Closure**
+
+- Recap the topics discussed
+- Discuss how project organization, best practices, and style guide lead into reproducible data science
 
 **Assessment**
 
