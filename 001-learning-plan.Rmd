@@ -1,37 +1,6 @@
----
-title: "Workshop Learning Plan"
-author: "Alex Knudson"
-date: "4/6/2021"
-output: 
-  html_document:
-    number_sections: true
-    toc: true
-    toc_float:
-      collapsed: false
-      smooth_scroll: true
-    toc_depth: 2
-    
----
+# Learning Plan {-}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# R Workshop Series
-
-- Details
-  - Date, time, location
-  - Presenters
-- Lesson Plan
-  - Necessary materials
-  - Clear objectives
-  - Background knowledge
-  - Direct instruction
-  - Student practice
-  - Closure
-  - Demonstration of learning (quick assessment)
-
-## Introduction to R pt. 1
+## Introduction to R: Part One {-}
 
 This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. R basics will be covered, such as using the command line as a calculator, storing values in a variable, basic data structures (vector, matrix, list, data frame, etc.), and data types. We will show how to load basic data sets and access rows/columns, and summarize data with statistics and plots. We will also cover some considerations when choosing R over another language.
 
@@ -75,7 +44,7 @@ Students should know:
 **Direct Instruction**
 
 | Activity                                                         | Duration   |
-|:-----------------------------------------------------------------|:-----------|
+|:-----------------------------------------------------------------|-----------:|
 | Introductions and overview                                       | 10 minutes |
 | Opening the R command line                                       |  2 minutes |
 | Accessing the built-in help docs                                 |  2 minutes |
@@ -106,7 +75,7 @@ Students should know:
 
 - TBD
 
-## Introduction to R pt. 2
+## Introduction to R: Part Two {-}
 
 This workshop introduces scripting in R, including control flow, writing functions, and installing/loading libraries (and the differences between CRAN, GitHub, and Bioconductor packages). We will go over the `-apply` family of functions, simple graphs, and good practices in R (style guide, organization, etc.).
 
@@ -145,7 +114,7 @@ Students should know:
 **Direct Instruction**
 
 | Activity                                               | Duration   |
-|:-------------------------------------------------------|:-----------|
+|:-------------------------------------------------------|-----------:|
 | Introductions and overview                             | 10 minutes |
 | Getting acquainted with RStudio                        | 20 minutes |
 | Writing and running an Rscript                         |  5 minutes |
@@ -170,7 +139,7 @@ Students should know:
 
 - TBD
 
-## Reproducible Data Science
+## Reproducible Data Science {-}
 
 We will discuss the problems we commonly see and introduce what it means to conduct reproducible data science. During the workshop, we will go through an example of setting up a new project folder, loading "messy" data, organizing scripts, and creating basic Rmarkdown reports. In reference to the messy data, we will go over what "tidy" data is, and how to use `tidyr` and other `tidyverse` libraries.
 
@@ -208,7 +177,7 @@ Students should know:
 **Direct Instruction**
 
 | Activity                                                  | Duration   |
-|:----------------------------------------------------------|:-----------|
+|:----------------------------------------------------------|-----------:|
 | Introductions                                             |  5 minutes |
 | Code smells and project smells                            | 15 minutes |
 | Overview of reproducible data science                     | 15 minutes |
@@ -231,7 +200,7 @@ Students should know:
 
 - TBD
 
-## Tidy R
+## Tidy R {-}
 
 This will be a workshop fully devoted to data wrangling, including loading and cleaning "dirty" data, formatting "messy" data, and transforming "tidy" data to suit the task. There will be an emphasis on `tidyverse` libraries, but we will mention `data.table` as a faster alternative with fewer dependencies but with the trade-off of being less "readable".
 
@@ -265,7 +234,7 @@ Students should know:
 **Direct Instruction**
 
 | Activity                                   | Duration   |
-|:-------------------------------------------|:-----------|
+|:-------------------------------------------|-----------:|
 | Introductions and overview                 | 10 minutes |
 | Introduction to tidy data                  | 10 minutes |
 | Into the tidyverse                         | 30 minutes |
@@ -287,7 +256,7 @@ Students should know:
 
 - TBD
 
-## Producing Pretty Graphs and Tables with `base`, `ggplot2`, and `kable`
+## Producing Clean Documents, Graphs, and Tables {-}
 
 In this workshop, we will go over some principles of the visual display of quantitative data, and go in-depth with plotting in R with `base` and `ggplot2`. Additionally, since not all data is well represented in a graph, we will go over creating pretty tables using the `kable` and `kableExtra` packages.
 
@@ -323,7 +292,7 @@ Students should know:
 **Direct Instruction**
 
 | Activity                                                         | Duration   |
-|:-----------------------------------------------------------------|:-----------|
+|:-----------------------------------------------------------------|-----------:|
 | Introductions and overview                                       | 10 minutes |
 | Principles of the visual display of quantitative information     | 15 minutes |
 | Building up plots using base `R`                                 | 15 minutes |

@@ -1,0 +1,180 @@
+# (PART) Workshop Series {-}
+
+# Introduction to R: Part One
+
+```{r 010-setup, include=FALSE}
+library(dagitty)
+library(magrittr)
+```
+
+## Introductions and Overview
+
+## Opening the R command line
+
+The R command line interface (CLI) is a *terminal* or console for entering R commands. A *command* is a way of giving the computer some information and having it perform a task.
+
+### Open in Windows
+
+-   start menu (see video below)
+-   desktop shortcut
+-   task bar shortcut
+
+<video width="800" height="600" autoplay muted loop>
+  <source src="media/01-opening-r-gui.webm" type="video/webm">
+</video>
+
+### Open in Linux
+
+-   application menu
+-   dock shortcut
+-   terminal (see video below)
+
+<video width="786" height="532" autoplay muted loop>
+  <source src="media/01-opening-r-cli.webm" type="video/webm">
+</video>
+
+## Using the console as a calculator
+
+### Basic arithmetic operators
+
+| Operator | Description      | Example        |
+|:---------|:-----------------|:---------------|
+| `+`      | addition         | `3 + 4 = 7`    |
+| `-`      | subtraction      | `10 - 2 = 8`   |
+| `*`      | multiplication   | `2.5 * 4 = 10` |
+| `/`      | division         | `9 / 2 = 4.5`  |
+| `^`      | exponentiation   | `11^2 = 121`   |
+| `%%`     | modulus          | `5 %% 3 = 2`   |
+| `%/%`    | integer division | `9 %/% 2 = 4`  |
+
+```{r 010-Navy-Flannel}
+# Order of operations still applies
+5 - 4 + 5*2^4
+# Use paranthesis to ensure desired order of operations
+(-2 + (5 / 3.8)) * 1.618^2
+```
+
+### Three basic types of numbers
+
+I say there are three types of numbers in R because R has different ways of working with different numbers
+
+| Number type | Description                                              | Example        |
+|:------------|:---------------------------------------------------------|:---------------|
+| Integer     | Whole numbers, positive or negative                      | `4L, -3L, 0L`  |
+| Decimal     | Any number, positive or negative, with a fractional part | `3.1, pi, 4.0` |
+| Complex     | A real decimal number with an imaginary decimal part     | `-2.1+5i`      |
+
+Notice that the integers have an `L` at the end. This is to explicitly tell R to represent a number as a [[long](https://en.wikipedia.org/wiki/Integer_(computer_science)#Long_integer)] integer, rather than a double (decimal) number.
+
+```{r 010-Global-Toupee}
+is.integer(4)  # FALSE
+is.double(4)   # TRUE
+is.integer(4L) # TRUE
+```
+
+### Logical operators
+
+Logical operators test for a condition. They ask a question, and the answer is either `TRUE` or `FALSE`.
+
+| Operator | Description            | Example                                         |
+|:---------|:-----------------------|:------------------------------------------------|
+| `<`      | less than              | `5 < 4 -> FALSE`                                |
+| `<=`     | less than or equal     | `6 <= 6 -> TRUE`                                |
+| `>`      | greater than           | `Inf > 1e6 -> TRUE`                             |
+| `>=`     | greater than or equal  | `3.5 >= 9 -> FALSE`                             |
+| `==`     | exactly equal          | `sin(0) == 0 -> TRUE`                           |
+| `!=`     | not equal              | `(3+1)^2 != 3^2 + 1^1 -> TRUE`                  |
+| `!`      | not                    | `!TRUE -> FALSE`                                |
+| `&&`     | and (short-circuiting) | `(5 < 7) && (7 < 10) -> TRUE`                   |
+| `||`     | or (short-circuiting)  | `(2 > 7) || (2 < 4) -> TRUE`                    |
+| `&`      | and (vectorized)       | `TRUE & 2 > c(1,2,3) -> c(FALSE, FALSE, TRUE)`  |
+| `|`      | or (vectorized)        | `FALSE | 2 <= c(1,2,3) -> c(FALSE, TRUE, TRUE)` |
+
+### Other math functions
+
+| Function  | Description | Example |
+|:----------|:------------|:--------|
+| `abs`   | absolute value of a number | `abs(-2.5), abs(3L), abs(3+4i)` |
+| `sqrt`  | square root of a number    | `sqrt(0.81), sqrt(-1+0i)`       |
+| `exp`   | $e^x$                      | `exp(1) ->` `r exp(1)`          |
+| `log`   | logarithm of a number (base is the natural number $e$ by default)       | |
+| `log10` | base 10 logarithm of a number (see also `log2`, `log1p`, `logb`)        | |
+| `sin`, `cos`, `tan` | basic trigonometric functions (radians by default)          | |
+| `asin`, `acos`, `atan` | inverse trigonometric functions                          | |
+| `sinh`, `asinh`, etc. | hyperbolic and inverse hyperbolic trigonometric functions | |
+| `ceiling` | rounds a number towards infinity        | `ceiling(-2.8) -> -2` |
+| `floor` | rounds a number towards negative infinity | `floor(3.9) -> 3`     |
+| `round` | rounds a number to a specified number of digits (round to even by default) | |
+| `trunc` | strips the decimal part from a number | `trunc(2.1) -> 2`, `trunc(2.9) -> 2` |
+
+Also note, all *infix* operations can be used with *prefix* notation:
+
+```{r 010-Sad-Door}
+3 + 4 # infix
+`+`(3, 4) # prefix
+```
+
+
+### Built-in constants and other values
+
+| Keyword | Description                                           | Example          |
+|:--------|:------------------------------------------------------|:-----------------|
+| `pi`    | The ratio of a circle's circumference to its diameter | `3.14159...`     |
+| `Inf`   | The floating point representation of infinity         | `1 / 0 -> Inf`   |
+| `-Inf`  | Negative infinity                                     | `1 / -0 -> -Inf` |
+| `NA`    | A placeholder for missing values                      |                  |
+| `NaN`   | **N**ot **a** **N**umber                              | `0 / 0 -> NaN`   |
+
+The *Institute of Electrical and Electronics Engineers* (IEEE, "eye-triple-ee") sets many of the standards for computer protocol, including how *floating point* numbers behave. A floating point number is the computer representation of a real number, but due to finite precision, there are some inconsistencies:
+
+```{r 010-Olive-Toupee}
+0.3 - 0.1 # should be 0.2
+(0.3 - 0.1) == 0.2 # should be true
+# R is lying to us!
+print(0.3-0.1, digits = 16)
+# use `all.equal` to test floating point equality
+all.equal(0.3 - 0.1, 0.2)
+```
+- R uses 64 bit (double) precision for floating point numbers and 32 bit *signed* integers
+- https://en.wikipedia.org/wiki/IEEE_754
+- https://en.wikipedia.org/wiki/Division_by_zero#Computer_arithmetic
+
+### Practice
+
+The quadratic equation is used to find the roots of quadratic (2nd degree) polynomials. For a quadratic polynomial given by 
+
+$$ax^2 + bx + c$$
+
+the roots are given by
+
+$$x_{1,2} = \frac{-b \pm \sqrt{b^2 -4ac}}{2a}$$
+
+Find the roots of the following equations using the quadratic equation:
+
+a) $y = 2x^2 + 2x - 24$
+b) $y = 4x^2 + 9$
+c) $y = x^2 + 4x + 4$
+
+## Accessing the built-in docs
+
+Most if not all functions in R have useful help documentation that can be accessed directly within the R console.
+
+```r
+> help(sum)
+
+> ?sum
+
+> library(help = "base")
+```
+
+## Working with variables
+
+## How R stores data
+
+*Types, classes, and storage modes*
+
+## Working with different data types
+
+*Coercion and conversion*
+
+

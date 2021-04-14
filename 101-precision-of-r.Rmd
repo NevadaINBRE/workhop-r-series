@@ -1,0 +1,27 @@
+# The precision of R
+
+Some internal properties of how R represents numbers can be accessed with the `.Machine` variable:
+
+```{r 101-Ghastly-Tuba}
+head(.Machine, 5)
+```
+
+R uses 64 bit (double) precision for floating point numbers and 32 bit *signed* integers.
+
+```{r 101-Bitter-Tungsten}
+# 64 bit floating point number
+.Machine$double.exponent + .Machine$double.digits
+```
+
+```{r 101-New-Kangaroo}
+# 32 bit integer
+.Machine$integer.max
+log2(.Machine$integer.max + 1) + 1 # 2^(n_bits - 1) - 1 = max_integer
+```
+
+```{r 101-Wild-Frostbite}
+# Oddities
+is.integer(.Machine$integer.max)
+is.integer(.Machine$integer.max + 1)
+is.double(.Machine$integer.max + 1)
+```

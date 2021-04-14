@@ -1,0 +1,20 @@
+--- 
+title: "R for Data Science Bootcamp"
+author: "Alex Knudson"
+date: "`r Sys.Date()`"
+site: "bookdown::bookdown_site"
+documentclass: book
+bibliography: packages.bib
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::write_bib(x = c(
+  "knitr", "rmarkdown", "bookdown", "kable",
+  "tidyverse"
+), file = "packages.bib")
+```
+
+# Introduction {-}
+

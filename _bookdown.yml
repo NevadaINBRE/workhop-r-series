@@ -1,0 +1,5 @@
+book_filename: "workshop.Rmd"
+delete_merged_file: true
+output_dir: "_book"
+before_chapter_script: "_common.R"
+after_chapter_script: "_after.R"
