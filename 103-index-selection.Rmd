@@ -1,0 +1,78 @@
+# Indexing with Nothing
+
+```{r 103-setup, include=FALSE}
+set.seed(1234)
+```
+
+
+In R, you can access the elements of a vector, matrix, or data frame using either a boolean vector or a vector of indices:
+
+```{r 103-Burst-Eager}
+(x <- letters[1:5])
+b <- c(T, F, T, T, F)
+x[b]
+i <- c(1, 3, 4)
+x[i]
+```
+
+You can also *deselect* elements using the negation of a boolean vector:
+
+```{r 103-Dirty-Gravel}
+x[!b]
+```
+
+And then a handy feature in R is that you can use the "negation" of an index vector:
+
+```{r 103-Vital Helium}
+x[-i]
+```
+
+## Where things go wrong
+
+Now let's see what happens when we try to filter a data frame. Say we are trying to remove rows that match a condition of the columns.
+
+```{r 103-Angry Steel}
+N <- 100
+df <- data.frame(
+  ID = 1:N,
+  W = rnorm(N, 1, 0.1),
+  B = sample(c(T, F), size = N, replace = T, prob = c(0.25, 0.75)),
+  R = sample(c(T, F), size = N, replace = T, prob = c(0.25, 0.75))
+)
+str(df)
+```
+
+Let's say our attempts at filtering the data set returns a vector of booleans that represent the rows *that we want to remove*. Then to get rid of those columns, we need to do the negation.
+
+```{r 103-Running Weather}
+# mix of trues and falses
+b <- sample(c(T,F), N, T, c(0.1, 0.9))
+head(df[!b,]) # subset using negation of boolean
+
+i <- which(b) # get indices of trues
+head(df[-i,]) # subset using negation of index
+all(df[!b,] == df[-i,])
+```
+
+Everything works fine. But what happens when everything is fine, and no rows need to be removed? The boolean vector will contain all falses. Everything still works for the boolean selection:
+
+
+```{r}
+# All values false
+b <- rep(F, N)
+# returns the full data set
+str(df[!b, ])
+```
+
+But now what happens when we use the vector of indices? If the opposite of *keep all rows* is *keep no rows*, then we might expect the opposite of *keep no rows* to be *keep all rows*. For a boolean vector, this is true, but not so for a vector of indices:
+
+```{r}
+# there are no true values ==> empty vector
+(i <- which(b))
+# negative selection of an empty vector is undefined behavior
+head(df[-i, ])
+```
+
+## Solution
+
+The best practice is to either verify that the vector of indices is not empty, or to use a boolean vector whenever possible. It is also better to use boolean vectors because then you can use boolean algebra. Say you want to retain rows defined by the union of two vectors. You can use the `union()` function, or you can simply use the  *or* operator (`|`), which is logically doing the same thing. You can also build up more complex filtering using *and* (`&`) and *xor* (`xor()`) operations.
