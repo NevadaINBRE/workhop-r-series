@@ -1,5 +1,11 @@
 # Interpreted vs. Compiled Languages
 
+```{r 102-setup, include=FALSE}
+# To build on your own PC, point the JULIA_HOME path to your installation of Julia
+JuliaCall::julia_setup(JULIA_HOME = "/home/alex/julia-1.6.0/bin/",
+                       installJulia = FALSE)
+```
+
 R is an *interpreted* language which means that it can be run line-by-line. This is in contrast to a *compiled* language like C or C++, where code is translated directly to machine code that is native to the PC it is compiled on.
 
 ```{r 102-Brutal-Olive-Cosmic, echo=FALSE}
