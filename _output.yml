@@ -15,15 +15,15 @@ bookdown::gitbook:
       family: sans
       size: 2
     sharing:
-      facebook: yes
+      facebook: no
       github: no
-      twitter: yes
-      linkedin: yes
+      twitter: no
+      linkedin: no
       weibo: no
       instapaper: no
       vk: no
       whatsapp: no
-      all: ['facebook', 'twitter', 'linkedin', 'weibo', 'instapaper']
+      all: ['facebook', 'twitter', 'linkedin']
     info: yes
 # bookdown::pdf_book:
 #     keep_tex: yes

@@ -2,7 +2,7 @@
 title: "R for Data Science Bootcamp"
 author: "Alex Knudson"
 date: "`r Sys.Date()`"
-site: "bookdown::bookdown_site"
+site: bookdown::bookdown_site
 documentclass: book
 bibliography: packages.bib
 biblio-style: apalike
