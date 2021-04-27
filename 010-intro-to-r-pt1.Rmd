@@ -52,7 +52,7 @@ The R command line interface (CLI) is a *terminal* or console for entering R com
 ```{r 010-Navy-Flannel}
 # Order of operations still applies
 5 - 4 + 5*2^4
-# Use paranthesis to ensure desired order of operations
+# Use parentheses to ensure desired order of operations
 (-2 + (5 / 3.8)) * 1.618^2
 ```
 
@@ -137,6 +137,7 @@ print(0.3-0.1, digits = 20)
 # use `all.equal` to test floating point equality
 all.equal(0.3 - 0.1, 0.2)
 ```
+
 - R uses 64 bit (double) precision for floating point numbers and 32 bit *signed* integers
 - https://en.wikipedia.org/wiki/IEEE_754
 - https://en.wikipedia.org/wiki/Division_by_zero#Computer_arithmetic
@@ -161,7 +162,7 @@ c) $y = x^2 + 4x + 4$
 
 Most if not all functions in R have useful help documentation that can be accessed directly within the R console.
 
-```r
+``` r
 > help(sum)
 
 > ?sum
@@ -312,6 +313,8 @@ For a full overview, see the [R documentation on basic types](https://cran.r-pro
 
 ## Working with vectors, matrices, and arrays
 
+### Vectors
+
 - a *vector* is a collection of *same-type* objects
 - aka an *atomic* vector
 - all elements coerced to the least restrictive type
@@ -323,23 +326,100 @@ c(4.5, 2, 3.8)
 1:4
 c(TRUE, FALSE, FALSE)
 seq(from = 0.1, to = 1.0, by = 0.4)
+LETTERS
 ```
 
-- A matrix in R is a vector with dimension *attributes*
+**Question:** What is meant by "least restrictive type"?
+
+```{r 010-Dead Laser}
+# mix of integer and logical
+
+# mix of integer and double
+
+# mix of double and complex
+
+# mix of double and character
+
+```
+
+We can access the elements of a vector by using brackets: `[]`. Note that R uses "one-based indexing", meaning that arrays start at $1$, not $0$.
+
+```{r 010-Massive Tungsten}
+# accessing a single element from `letters`
+
+# accessing multiple elements using a vector of indices
+
+# accessing a subset using conditionals
+
+# accessing the last element
+
+```
+
+
+### Matrices
+
+- A matrix in R is a vector with a `dim` *attribute*
 - It is stored in memory the same way as a vector is
 
 ```{r 010-Scarlet Crayon}
-# a couple of matrices
+# creating a matrix using the `matrix()` function
 matrix(1:12, nrow = 3, ncol = 4)
-matrix(0, nrow = 5, ncol = 2)
+# filling a matrix with a single value
+matrix("m", nrow = 5, ncol = 2)
 ```
 
+Matrices (and vectors and arrays) are stored in *column-major order*
+
+```{r 010-Gutsy Logbook}
+# default: fills in down each column
+matrix(1:12, nrow = 3)
+# explicitly fill in accross rows first
+matrix(1:12, nrow = 3, byrow = TRUE)
+```
+
+
+Elements of a matrix can either be accessed with row-column pairs, or with *linear indexing*
+
+```{r 010-Outstanding Flea}
+# create a 3x5 matrix
+(M <- matrix(1:15, nrow = 3))
+# get the element at the second row and fourth column
+
+# get the 8th element in memory
+
+```
+
+You can create subsets of a matrix using a pair of vectors for indices.
+
+```{r 010-Morbid Obscure}
+# get rows 1 and 3, and columns 2 and 4
+
+```
+
+A matrix can be turned back into a vector by removing its dimension attribute. In the same way, a matrix can be reshaped, or a vector can be turned into a matrix.
+
+```{r 010-Serpent Temporary}
+# show the attributes of the matrix, M
+
+# get the `dim` attribute
+
+# remove the `dim` attribute by setting it to `NULL`
+
+# turn M into a 5x3 matrix
+
+```
+
+### Arrays
+
 - An array is an extension of a matrix, having 2 or more dimensions
+- Arrays are created using the `array()` function or by setting the `dim` attribute of a vector
 
 ```{r 010-Magenta Blue Tuba}
 # one array
 (a <- array(1:(5*4*3), dim = c(5, 4, 3)))
 ```
+
+
 
 
 ## Working with lists

@@ -56,8 +56,7 @@ all(df[!b,] == df[-i,])
 
 Everything works fine. But what happens when everything is fine, and no rows need to be removed? The boolean vector will contain all falses. Everything still works for the boolean selection:
 
-
-```{r}
+```{r 103-Scattered Mountain}
 # All values false
 b <- rep(F, N)
 # returns the full data set
@@ -66,7 +65,7 @@ str(df[!b, ])
 
 But now what happens when we use the vector of indices? If the opposite of *keep all rows* is *keep no rows*, then we might expect the opposite of *keep no rows* to be *keep all rows*. For a boolean vector, this is true, but not so for a vector of indices:
 
-```{r}
+```{r 103-Reborn Supersonic Python}
 # there are no true values ==> empty vector
 (i <- which(b))
 # negative selection of an empty vector is undefined behavior
