@@ -417,12 +417,25 @@ A matrix can be turned back into a vector by removing its dimension attribute. I
 ```{r 010-Magenta Blue Tuba}
 # one array
 (a <- array(1:(5*4*3), dim = c(5, 4, 3)))
+# show the attributes
+attributes(a)
 ```
 
-
-
-
 ## Working with lists
+
+- A list is a "generic vector"
+- Each element of a list can be *any* type of R object
+
+```{r}
+(L <- list(1, "d", formula(y ~ x), list(a = 1, b = 1:4, c = letters[3:7])))
+```
+
+As seen above, lists can hold other lists, and elements can be named or referenced by index. This can become complicated to mentally parse as printed above, so the `str` command can come in handy.
+
+```{r}
+str(L)
+```
+
 
 ## Working with data frames
 
