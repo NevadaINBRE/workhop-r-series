@@ -300,6 +300,19 @@ How to check that a number is an integer:
 
 ```
 
+## Special data type: Factors
+
+A factor *looks* like a string, but *acts* like an integer (most of the time).
+
+```{r 010-Hungry Roadrunner}
+# most often used for categorical observations
+pets <- c("cat", "dog", "lizard", "raccoon")
+(pet_obs <- sample(pets, 10, TRUE))
+# Turn the character vector into a set of factors
+
+```
+
+
 ## Overview of objects and data structures
 
 For a full overview, see the [R documentation on basic types](https://cran.r-project.org/doc/manuals/R-lang.html#Basic-types).
@@ -426,27 +439,126 @@ attributes(a)
 - A list is a "generic vector"
 - Each element of a list can be *any* type of R object
 
-```{r}
-(L <- list(1, "d", formula(y ~ x), list(a = 1, b = 1:4, c = letters[3:7])))
+```{r 010-Outstanding Backpack}
+(L <- list(a = 1, "d", formula(y ~ x), sublist = list(a = 1, b = 1:4, c = letters[3:7])))
 ```
 
 As seen above, lists can hold other lists, and elements can be named or referenced by index. This can become complicated to mentally parse as printed above, so the `str` command can come in handy.
 
-```{r}
+```{r 010-Tidy Boiling Creek}
 str(L)
 ```
 
+Elements of a list can be accessed in three different ways.
+
+```{r 010-Rebel Pluto}
+# Using the `$` selector
+
+# Using single bracket notation
+
+# Using double bracket notation
+
+```
 
 ## Working with data frames
 
+What are some of the key properties of a data frame?
+
+- 
+- 
+- 
+
+Accessing elements of a data frame is similar to lists *and* matrices.
+
+```{r 010-Butter Lucky}
+# getting a single column using the `$` selector or `[[`
+
+# getting multiple columns using `[` and a index/character vector
+
+# getting a single element using `[`
+
+# getting a single element using `$` and `[`
+
+```
+
 ## Reading data from a file
+
+Common text files can be read using the `read-` set of functions
+
+- read comma separated values (CSV) files with `read.csv()`
+  - the more general function is `read.delim()`
+  - the other specialized function is `read.table()`
+- read general text files using `readLines()`
+
+```{r 010-Rough Tombstone}
+# read in the sample csv file
+
+```
+
+More proprietary formats can be read in using a library
+
+- `readr` for the tidyverse version of `read-` functions
+- `readxl` for Excel spreadsheets
+- `R.matlab` for Matlab files
 
 ## Fitting a linear model
 
+R has built-in support for fitting [generalized] linear models, with support for numeric and factor variables.
+
+```{r 010-Hungry Boomerang}
+# y ~ normal(3x + 2, 0.5)
+x <- rnorm(30)
+y <- rnorm(length(x), 3*x + 2, 0.5)
+plot(y ~ x) # same as plot(x, y)
+# fit a linear model
+
+```
+
+Can also fit a generalized linear model using (you guessed it) the `glm()` function.
+
+```{r 010-Swift Electrical}
+# logit(theta) = 3x + 2
+k <- rbinom(length(x), size = 1, prob = plogis(3*x+2))
+plot(k ~ x)
+# fit a generalized linear model with logit link
+
+```
+
 ## Summarizing data frames and models
 
+R has a method for summarizing vectors, data frames, and fitted models, and it is the `summary()` function.
+
+```{r 010-Skilled Navy Lama}
+# summarize a numeric vector
+
+# summarize a data frame
+
+# summarize a linear model
+
+```
+
+Notice that it outputs differently for different input objects. This is because `summary()` is a *generic* function, meaning that it has multiple *methods* defined for different R objects, and packages can define their own behavior for their own types.
+
 ## Producing simple plots
+
+There are a few simple plotting functions in R
+
+- `plot()`
+  - also "generic"
+  - can produce scatter and line plots
+- `lines()` adds lines to plots
+- `points()` adds points to plots
+- `curve()` plots a function over a domain
+  - can be used alone or "layered" on top of an existing plot
+
+Other types of graphs include
+
+- `hist()` for histograms
+- `barplot()`
+- `boxplot()`
+- `stem()` for stem-and-leaf plot
 
 ## R, compared
 
 *What is R best for*
+
