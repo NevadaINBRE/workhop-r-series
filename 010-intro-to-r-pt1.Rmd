@@ -121,11 +121,12 @@ Also note, all *infix* operations can be used with *prefix* notation:
 
 | Keyword | Description                                           | Example          |
 |:--------|:------------------------------------------------------|:-----------------|
-| `pi`    | The ratio of a circle's circumference to its diameter | `3.14159...`     |
 | `Inf`   | The floating point representation of infinity         | `1 / 0 -> Inf`   |
 | `-Inf`  | Negative infinity                                     | `1 / -0 -> -Inf` |
-| `NA`    | A placeholder for missing values                      |                  |
 | `NaN`   | **N**ot **a** **N**umber                              | `0 / 0 -> NaN`   |
+| `NA`    | A placeholder for missing values                      |                  |
+| `NULL`  | An R object representing the empty set or nothing     |                  |
+| `pi`    | The ratio of a circle's circumference to its diameter | `3.14159...`     |
 
 The *Institute of Electrical and Electronics Engineers* (IEEE, "eye-triple-ee") sets many of the standards for computer protocol, including how *floating point* numbers behave. A floating point number is the computer representation of a real number, but due to finite precision, there are some inconsistencies:
 
