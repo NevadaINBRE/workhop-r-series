@@ -1,3 +1,26 @@
 # Producing Clean Documents
 
 ## Introductions and Overview
+
+## Plots
+
+### Principles of
+
+### Using base R
+
+### Using ggplot2
+
+## Tables
+
+## Documents
+
+### R Notebook
+
+### R Markdown
+
+- `markdown` meets `LaTeX` meets `html`
+
+### rticles
+
+### bookdown
+

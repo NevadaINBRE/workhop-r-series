@@ -1,3 +1,31 @@
 # Introduction to R: Part Two
 
 ## Introductions and Overview
+
+## What is RStudio
+
+## Opening RStudio
+
+## Navigating RStudio
+
+## Writing and running an Rscript
+
+## The -apply family of functions
+
+## Control flow
+
+### Conditionals
+
+### Loops
+
+### Switches
+
+## Writing functions
+
+## Working with libraries
+
+## Creating a new project
+
+## Best practices and style
+
+## Conclusion

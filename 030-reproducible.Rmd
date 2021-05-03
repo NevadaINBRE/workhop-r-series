@@ -1,3 +1,31 @@
 # Reproducible Data Science
 
 ## Introductions and Overview
+
+## Principles of
+
+## Examples of bad habits
+
+## Organizing a new project
+
+## Code practices
+
+### Re-using code
+
+- functions
+- creating a user library
+- implement simple, composable functions
+
+### Writing human-readable code
+
+> Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. -- Brian Kernighan
+
+## Utilizing existing libraries
+
+## Data is immutable
+
+## Dynamic documents and reports
+
+## Tracking a project over time
+
+## Conclusion
