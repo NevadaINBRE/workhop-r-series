@@ -1,3 +1,46 @@
 # Tidy R
 
 ## Introductions and Overview
+
+## Tidy Data
+
+### Identifying Not-Tidy data
+
+### Practice
+
+## Formatting Tidy Data
+
+### pivot_longer
+
+### pivot_wider
+
+## Dealing with NA's
+
+### Drop missing values
+
+### Fill missing values
+
+## Separating and Combining our Data
+
+### What if one variable is spread across multiple columns?
+
+### Or if multiple variables are contained in one column?
+
+## Manipulating Tidy Data
+
+### Grouping makes manipulating dataframes easy!
+
+### Summarize
+
+## Combining your Data
+
+### Bind
+
+### Join
+
+
+
+
+
+
+
