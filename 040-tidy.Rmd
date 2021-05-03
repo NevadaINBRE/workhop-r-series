@@ -32,7 +32,7 @@
 
 ### Summarize
 
-## Combining your Data
+## Merging Tidy Data
 
 ### Bind
 
