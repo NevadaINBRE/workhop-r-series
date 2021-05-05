@@ -25,5 +25,3 @@ bookdown::gitbook:
       whatsapp: no
       all: ['facebook', 'twitter', 'linkedin']
     info: yes
-# bookdown::pdf_book:
-#     keep_tex: yes

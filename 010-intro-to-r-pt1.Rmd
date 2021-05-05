@@ -21,7 +21,7 @@ The R command line interface (CLI) is a *terminal* or console for entering R com
 -   desktop shortcut
 -   task bar shortcut
 
-<video width="800" height="600" autoplay muted loop>
+<video width="100%" autoplay muted loop controls>
   <source src="media/01-opening-r-gui.webm" type="video/webm">
 </video>
 
@@ -31,7 +31,7 @@ The R command line interface (CLI) is a *terminal* or console for entering R com
 -   dock shortcut
 -   terminal (see video below)
 
-<video width="786" height="532" autoplay muted loop>
+<video width="100%" autoplay muted loop controls>
   <source src="media/01-opening-r-cli.webm" type="video/webm">
 </video>
 

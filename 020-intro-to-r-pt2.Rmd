@@ -17,7 +17,22 @@
 
 ### Open in Windows
 
+- start menu (see video below)
+- desktop shortcut
+- task bar shortcut
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/02-opening-rstudio-windows.webm" type="video/webm">
+</video>
+
 ### Open in Linux
+
+- application menu (see video below)
+- dock shortcut
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/02-opening-rstudio-ubuntu.webm" type="video/webm">
+</video>
 
 ## Navigating RStudio
 
