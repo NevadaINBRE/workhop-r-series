@@ -4,13 +4,50 @@
 
 ## What is RStudio
 
+- RStudio is an *integrated development environment* (IDE) for the R programming language
+- You can create, open, and edit scripts and other text file types
+- You can create and manage project files
+- You can build libraries, documents, and other projects
+- View plots, tables, web apps, and more
+- Help documentation explorer
+- Package manager
+- Debugger
+
 ## Opening RStudio
+
+### Open in Windows
+
+### Open in Linux
 
 ## Navigating RStudio
 
+- Four separate regions with individual *panes*
+- Main panes are
+  - source editor
+  - console
+  - environment and history
+  - files, plots, packages, help, etc.
+
 ## Writing and running an Rscript
 
+Writing a script allows one to re-use and re-write code. It means that you can also share your code, keep track of changes, and string together more complex commands to carry out an analysis.
+
+1. Create a new file (`ctrl+shift+N`)
+2. Type in an R command
+
+You can run the entire script at once using the "source" button (`ctrl+shift+S` or `ctrl+shift+enter`), or you can run line-by-line (`ctrl+enter`).
+
 ## The -apply family of functions
+
+`apply()`
+
+`lapply()`
+
+`sapply()`
+
+`tapply()`
+
+`vapply()`
 
 ## Control flow
 
