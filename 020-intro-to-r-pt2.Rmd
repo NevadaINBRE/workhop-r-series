@@ -54,30 +54,246 @@ You can run the entire script at once using the "source" button (`ctrl+shift+S` 
 
 ## The -apply family of functions
 
-`apply()`
+- `apply()`
+  - generic
+  - can be used on matrices, data frames, and arrays
+- `lapply()`
+  - takes a list, vector, or data frame
+  - returns a list
+- `sapply()`
+  - "simplified" apply
+  - return type depends on input
+- `tapply()`
+  - table apply
+  - apply a function to a table grouped by some index
+  - useful for e.g. counting number of rows for each factor level
+- `vapply()`
+  - vectorized apply
+  - very strict about the input and output type
+  - useful to ensure a specific return type
+- `rapply()`
+  - recursive `lapply`
+- `replicate()`
+  - a simplified wrapper for `sapply`
+  - replicates an expression `n` times
+  - useful for more complex random sampling
+  
+```{r 020-Sienna Jazz}
+# Load two data examples (list and matrix)
 
-`lapply()`
-
-`sapply()`
-
-`tapply()`
-
-`vapply()`
+```
 
 ## Control flow
 
+Control flow statement is a statement that results in a choice being made as to which of two or more paths to follow.
+
 ### Conditionals
+
+The simplest control flow is the `if-else` kind.
+
+```{r 020-Green Vital Ostrich}
+# An if statement can stand alone
+if (7 > 3) {
+  cat("hello from inside the 'if' block\n")
+}
+
+# You can have an if and an else
+do_first_condition <- FALSE
+if (do_first_condition) {
+  cat("This shouldn't print\n")
+} else {
+  cat("This is the fallback option\n")
+}
+
+# If, else if, else
+x <- 4
+if (x < 0) {
+  cat(x, " is less than 0\n")
+} else if (isTRUE(all.equal(x, 0))) {
+  cat(x, " is equal to 0\n")
+} else {
+  cat(x, " is greater than 0\n") # is this true? ;)
+}
+
+# An `else` block is not required
+if (FALSE) {
+  cat("This won't print\n")
+} else if (7 < 4) {
+  cat("Neither will this\n")
+}
+```
 
 ### Loops
 
+There are two types of loops (technically one, but practically two), and they are the `while`-loop and the `for`-loop.
+
+`while`-loop
+
+```{r 020-Outstanding Test, eval=FALSE}
+some_condition_is_true <- TRUE
+some_counter <- 0
+number_of_iterations <- 12
+
+while (some_condition_is_true) {
+  # do stuff
+  cat("This is iteration:\t", some_counter, "\n")
+}
+```
+
+We can also further refine the behavior of a loop with the `continue` and `break` commands.
+
+```{r 020-Temporary Xylophone, eval=FALSE}
+# Skip if a number is divisible by 7
+# Print "fizz" if a number is divisible by 3
+# Print "buzz" if a number is divisible by 5
+# end the loop if the number reaches 23
+number <- 1
+while (TRUE) {
+  # do stuff
+  # don't forget to increment `number`
+}
+```
+
+Please note, the above code is a poor implementation for the [fizzbuzz](https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/) test.
+
+`for`-loop
+
+When we know ahead of time how many iterations we are going to do, we can instead use a `for`-loop which will take care of incrementing for us. We can also use a for-loop to *iterate* over elements in a vector.
+
+```{r 020-Full Bulldozer}
+x <- 3:7
+# print the number doubled
+
+```
+
 ### Switches
+
+A `switch` statement is a compact way to find a match over multiple conditions.
+
+```{r 020-Silly Knife}
+x <- rnorm(n = 30, mean = pi, sd = 0.4)
+stat <- "mean"
+switch (stat,
+  mean = mean(x),
+  sd = sd(x),
+  var = var(x),
+  round = round(x, 2),
+  "Default option: no match found"
+)
+```
 
 ## Writing functions
 
+- We've already seen some functions like math functions
+- functions are necessary to write flexible and reusable code
+- rule of thumb: if you copy and paste a block of code more than once, turn it into a function
+  - this applies to making plots as well
+- functions can have arguments
+  - positional arguments
+  - optional arguments
+  - named arguments
+  
+The Huber loss function (or just Huber function, for short) is defined as:
+
+$$
+\psi(x) = \begin{cases}
+x^2 & \text{if } |x| \leq 1 \\
+2|x| - 1 & \text{if } |x| > 1
+\end{cases}
+$$
+
+```{r 020-Dreadful Crystal}
+# write a function `huber()` that takes as an input a number, x,
+# and returns the Huber value
+huber <- function() {
+  
+}
+```
+
+The Huber function can be modified so that the transition from quadratic to linear happens at an arbitrary cutoff value $a$, as in:
+
+$$
+\psi_a(x) = \begin{cases}
+x^2 & \text{if } |x| \leq a \\
+2a|x| - a^2 & \text{if } |x| > a 
+\end{cases}
+$$
+
+Starting with the code above, update the `huber()` function so that it takes two arguments: $x$, a number at which to evaluate the loss, and $a$, a number representing the cutoff value. 
+
+It should now return $\psi_a(x)$, as defined above. Check that `huber(3, 2)` returns 8, and `huber(3, 4)` returns 9.
+
+```{r 020-Mysterious Mars}
+huber <- function() {
+  
+}
+```
+
+Update the `huber()` function so that the default value of the cutoff $a$ is 1. Check that `huber(3)` returns 5.
+
+```{r 020-Bitter Python}
+huber <- function() {
+  
+}
+```
+
+Check that `huber(a=1, x=3)` returns 5. Check that `huber(1, 3)` returns 1. Why are these different?
+
+Finally, we can *vectorize* this function over a set of inputs in two different ways:
+
+```{r 020-Dusty Needless Summer}
+# ifelse()
+# Vectorize()
+```
+
 ## Working with libraries
+
+On the subject of code reuse, we can stand on the shoulders of giants (or other researchers) and use the code that they've decided to share on CRAN or GitHub (or Bioconductor, or ...). We use their code through something called a *library* or *package*.
+
+```{r 020-Late Firecracker}
+# load the `readxl` package using the `library()` function
+
+# see what methods are exported by `readxl`
+
+```
+
+Sometimes two packages will export two different functions by the same name. When this happens, we get what is called a *namespace* conflict. In those cases (and in general), it is best to be explicit about which package's function you are using:
+
+```{r 020-Wild Smoke}
+# load the `dplyr` package and observe the 'onload' message
+library(dplyr)
+```
+
+- It says that it's masked the object `filter` from `package:stats`
+- `stats` is a default R library that is available on startup
+- `dplyr` also exports an object called `filter` and overwrites it in the *namespace*
+
+```{r 020-Third Uranium}
+# This should work for time series
+x <- 1:100
+filter(x, rep(1, 3))
+```
+
+```{r 020-Test Aggressive}
+# fix the above error by being explicit about the namespace
+
+```
 
 ## Creating a new project
 
+<video width="100%" autoplay muted loop controls>
+  <source src="media/02-creating-project.webm" type="video/webm">
+</video>
+
+Why would we even bother with creating a new project folder/file?
+
+- 
+-
+-
+
 ## Best practices and style
 
+
+
 ## Conclusion
+
