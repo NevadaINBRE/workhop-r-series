@@ -72,11 +72,32 @@ When starting a new project using SCM, it is often easier to first create the *r
 
 For simple projects with only a couple of contributors, a GUI application can work fine. For more complex projects with many contributors, it is recommended to become familiar with using git in a terminal (command line interface -- CLI).
 
+#### Other resources
+
+- [git](https://git-scm.com/) (the underlying SCM software)
+- [GitHub](https://github.com/) (repo host)
+- [GitLab](https://about.gitlab.com/) (repo host)
+- [Bitbucket](https://bitbucket.org/product) (repo host)
+  - Part of the Atlassian group (Trello, Jira, Sourcetree)
+- [git best practices](https://sethrobertson.github.io/GitBestPractices/) (reference)
+- [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) branching model (reference)
+
 ### Start thinking about a project-oriented workflow
 
+In a "project-oriented" workflow, your IDE can manage the project by automatically setting the working directory whenever the project is opened. In RStudio, this is done with an R Project file (`.Rproj`).
 
+By letting your IDE manage the project and the working directory, you can set relative file paths ensuring that everything will work even if the project is opened on another computer. In general, the working directory should be the top level project directory, and all paths should be relative to that.
+
+#### Other resources
+
+- [What They Forgot to Teach you About R](https://rstats.wtf/project-oriented-workflow.html)
+- [R basics and workflows](https://stat545.com/r-basics.html)
+- [tidyverse: Project-oriented workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)
+- [RStudio community: Project-oriented workflow](https://community.rstudio.com/t/project-oriented-workflow-setwd-rm-list-ls-and-computer-fires/3549/2)
 
 ### Create the project structure
+
+
 
 ### (Optional) Set up a virtual environment
 

@@ -268,7 +268,7 @@ library(dplyr)
 - `stats` is a default R library that is available on startup
 - `dplyr` also exports an object called `filter` and overwrites it in the *namespace*
 
-```{r 020-Third Uranium}
+```{r 020-Third Uranium, error=TRUE}
 # This should work for time series
 x <- 1:100
 filter(x, rep(1, 3))
