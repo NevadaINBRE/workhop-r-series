@@ -2,13 +2,85 @@
 
 ## Introductions and Overview
 
-## Principles of
-
 ## Examples of bad habits
+
+- Having files, data, code, and documentation all scattered in different locations
+- Using excel to store, modify, and visualize data
+- Doing version control by copying and renaming files
+- Not documenting or commenting code
+
+## A few scenarios
+
+> You have data saved in an excel sheet, and proceed to open it up, create some new columns using excel functions, remove various rows, and fill in missing values with zeros. A few weeks later, the criteria for missing values changes. You can't remember which zeros were genuine, and which were originally missing. Furthermore, the removed rows are acutally necessary and they're gone! Hopefully the originally collected data is somewhere and unmodified.
+
+*Problem*: there is no good way to track the changes that have been made to an excel sheet.
+
+*Solution*: treat data as immutable, and use scripts to make procedural changes to the data.
+
+> You decide that doing everything in excel is a bad idea, and instead write a script to process the data. You know it's good to keep backups of files, so every time your script changes, you save it as a new file. You now have `process_data.R`, `process_data2.R`, `process_data_new.R`, and `process_data_20210505.R` as files. You send the code to a friend to review, and they send you back `process_data_20210507.R` as their modified version. Two months later you come back to these files because you can reuse some of the code, but you're not sure which one is the most up to date. You spend the rest of the day reading through the code of each file looking for differences.
+
+*Problem*: duplicating files can lead to confusion, and changes are not tracked over time.
+
+*Solution*: utilize a source control management system (like Git or SVM) to always have access to past versions and keep track of the most recent version.
+
+> You have a research project that requires data downloaded from the internet. It's pretty large, so you download it once and leave it in your downloads folder as `data.txt`. You also have some common functions that you reuse for other projects in your documents folder. Your code references the data and other scripts using absolute file paths (e.g. `/home/Hogarth/Documents/code/model_fitting.R` and `/home/Hogarth/Downloads/data.txt`). You want to share this project with a classmate, but when you send the files, the code no longer works for them.
+
+*Problems*: the project is not self-contained, and absolute file paths make it harder to run code on another PC.
+
+*Solution*: create a project directory (and project file if possible) and keep it self contained. Large data sets can be stored on a separate website and downloaded with a script. Reused code should be accessible (e.g. in a GitHub repository).
+
+**A worst case scenario**
+
+From *[Towards Data Science](https://towardsdatascience.com/creating-reproducible-data-science-projects-1fa446369386)*:
+
+> Imagine you completed a one-off analysis a few months ago, creating a fairly complex data pipeline, machine learning model, and visualizations. Fast forward to today and you have Emily, a senior executive at your company, asking you to reuse that work to help solve a similar, time-critical business problem. She looks stressed.
+
+> Now if only you could remember which copy of your model was the correct one; if you could make sense of the spaghetti code scattered throughout your Jupyter Notebooks, each with helpful names such as Untitled_1 and Untitled_2; what did the `data_process` function do and why are there six slightly different versions of it? If only there was some documentation!
+
+> “No problem!” you assure her, and after a few sleepless nights, during which you had to reverse engineer the entire codebase, the analysis is ready. Emily looks impressed, that promotion you’ve been waiting for might finally happen.
+
+> The next day Emily is back from presenting your findings. She’s not happy -- apparently there were mistakes in the analysis caused by simple coding errors that could have cost the company millions. If only you had run some tests! You apologise as she walks away muttering under her breath, you sit there and wonder if maybe you should pack up your desk before you head home for the night.
+
+## Principles of reproducible data science
+
+- Keeping to a common project structure
+- Creating self-contained projects
+- Documenting everything
+- Using version control
+- Utilizing tools to produce dynamic and parameterized reports
+- Splitting up reusable code into separate modules
+- Treating data as an immutable object
 
 ## Organizing a new project
 
-## Code practices
+- Let's walk through an example of setting up a new data science project in R (and maybe Python)
+- We will be using RStudio for R
+  - We will be using Visual Studio Code for Python
+  - Julia and other languages with no designated IDE can likely use the same general template as Python
+  - Visual Studio Code has support for many languages, and has an integrated terminal to run code
+
+### Setting up version control
+
+It is important to first decide on the source control management system that you will be using. Cloud storage services like Google Drive, OneDrive, Box, and dropbox usually offer a limited form of version history. This can be used as a *minimum* form of backup and version control. A more powerful and flexible solution is to learn a source control management (SCM) system such as Git or SVM. Services like GitHub, GitLab, and Bitbucket use Git to host *repositories*, or projects that others can view or contribute to.
+
+When starting a new project using SCM, it is often easier to first create the *repo* (short for repository) on GitHub (or whichever service you decide to use), *clone* the repo (download to your PC), and then begin adding files. For beginners, it is also easier to use a git graphic user interface (GUI). Git relies on terminal commands, but a GUI can lower the barrier to entry for those less confident with using a terminal. Common GUI applications are:
+
+- GitKraken [cross-platform] [free and pro versions] [my personal choice]
+  - free version only allows for public repos
+- GitHub Desktop [Windows, Mac] [free]
+- Sourcetree [Windows, Mac] [free]
+
+For simple projects with only a couple of contributors, a GUI application can work fine. For more complex projects with many contributors, it is recommended to become familiar with using git in a terminal (command line interface -- CLI).
+
+### Start thinking about a project-oriented workflow
+
+
+
+### Create the project structure
+
+### (Optional) Set up a virtual environment
+
+## Coding practices
 
 ### Re-using code
 

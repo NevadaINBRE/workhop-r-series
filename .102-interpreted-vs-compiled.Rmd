@@ -9,7 +9,7 @@ JuliaCall::julia_setup(JULIA_HOME = "/home/alex/julia-1.6.0/bin/",
 R is an *interpreted* language which means that it can be run line-by-line. This is in contrast to a *compiled* language like C or C++, where code is translated directly to machine code that is native to the PC it is compiled on.
 
 ```{r 102-Brutal-Olive-Cosmic, echo=FALSE}
-knitr::include_graphics("img/01-interpreted_vs_compiled.png")
+knitr::include_graphics("media/img/01-interpreted_vs_compiled.png")
 ```
 
 ## A really dumb example
