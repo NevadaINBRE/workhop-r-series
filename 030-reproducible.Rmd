@@ -97,6 +97,35 @@ By letting your IDE manage the project and the working directory, you can set re
 
 ### Create the project structure
 
+When all project folders are organized in the same way, the time spent searching for files is greatly reduced. 
+
+```
+├── LICENSE
+├── README.md      <- The top-level README for developers using this project.
+├── data           
+│   ├── external   <- Data from third party sources.
+│   ├── interim    <- Intermediate data that has been transformed.
+│   ├── processed  <- The final, canonical data sets for modeling.
+│   └── raw        <- The original, immutable data dump.
+│                  
+├── docs           <- A default Sphinx project; see sphinx-doc.org for details
+│                  
+├── models         <- Trained and serialized models, model predictions, 
+│                     or model summaries
+│                  
+├── notebooks      <- R notebooks. Naming convention is a number (for ordering),
+│                     the creator's initials, and a short `-` delimited 
+│                     description, e.g. `1.0-jqp-initial-data-exploration`.
+│                  
+├── references     <- Data dictionaries, manuals, and all other explanatory materials.
+│                  
+├── reports        <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   └── figures    <- Generated graphics and figures to be used in reporting
+│                  
+├── R              <- R scripts
+│                  
+└── scratch        <- Other scratch files for testing, etc.
+```
 
 
 ### (Optional) Set up a virtual environment
@@ -112,6 +141,8 @@ By letting your IDE manage the project and the working directory, you can set re
 ### Writing human-readable code
 
 > Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. -- Brian Kernighan
+
+### Writing comments
 
 ## Utilizing existing libraries
 

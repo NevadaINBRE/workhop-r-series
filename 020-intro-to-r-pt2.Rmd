@@ -42,6 +42,19 @@
   - console
   - environment and history
   - files, plots, packages, help, etc.
+  
+  
+## Creating a new project
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/02-creating-project.webm" type="video/webm">
+</video>
+
+Why would we even bother with creating a new project folder/file?
+
+- 
+-
+-
 
 ## Writing and running an Rscript
 
@@ -279,21 +292,14 @@ filter(x, rep(1, 3))
 
 ```
 
-## Creating a new project
-
-<video width="100%" autoplay muted loop controls>
-  <source src="media/vid/02-creating-project.webm" type="video/webm">
-</video>
-
-Why would we even bother with creating a new project folder/file?
-
-- 
--
--
-
 ## Best practices and style
 
-
+- Reinforce stuff from part 1
+- style guide
+- naming conventions
+- writing functions
+- avoiding loops
+- using projects
 
 ## Conclusion
 
