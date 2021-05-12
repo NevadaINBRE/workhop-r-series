@@ -88,6 +88,10 @@ In a "project-oriented" workflow, your IDE can manage the project by automatical
 
 By letting your IDE manage the project and the working directory, you can set relative file paths ensuring that everything will work even if the project is opened on another computer. In general, the working directory should be the top level project directory, and all paths should be relative to that.
 
+#### (Optional) Set up a virtual environment
+
+A virtual environment is a fancy way to describe a system of managing package versions and other dependencies. In R, there is a library called `renv` that can keep track of libraries installed and used in a project, and can restore the packages when the project is opened on a different computer. This can greatly contribute to reproducibility.
+
 #### Other resources
 
 - [What They Forgot to Teach you About R](https://rstats.wtf/project-oriented-workflow.html)
@@ -126,9 +130,6 @@ When all project folders are organized in the same way, the time spent searching
 │                  
 └── scratch        <- Other scratch files for testing, etc.
 ```
-
-
-### (Optional) Set up a virtual environment
 
 ## Coding practices
 
