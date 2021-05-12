@@ -32,7 +32,7 @@
 
 ### Summarize
 
-## Minimizing repition
+## Minimizing Repetition
 
 ### Purrr
 
