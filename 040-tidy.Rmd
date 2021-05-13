@@ -32,6 +32,104 @@
 
 ### Summarize
 
+## Minimizing Repetition
+
+### Purrr
+
+purrr: part of the tidyverse, the basic function `map()` is very similar to the `apply` family of functions.
+  - The goal is to minimize repetition, while maximizing replication. 
+  - Keep your code D.R.Y.
+  
+The basic arguments for `map()` are:
+`.x` - A list or vector (can be logical,integer,numeric,character)
+`.f` - A function or formula
+
+```{r 040-MooCow}
+library(tidyverse)
+df <- c(1,9,16,100,20,5,304,19)
+sr <- map(df, sqrt)
+# notice you do not need the () after the function as you would if executing from console
+view(sr)
+```
+Can't we just use our function on the character vector though?
+
+```{r 040-MooCow2}
+sqrt(df)
+
+# No silly! Same applies for data frames
+```
+
+When viewing the ouput of the function that we applied to our dummy data, you may have noticed that while the values are correct, the ouput format is messy.
+  - the base `map()` function will always output a list
+  - what about if we want a numeric outcome? or a list of `chr` values that we can plot later?
+  - `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()` return an atomic vector of the indicated type (or die trying).
+Let's see how this works:
+```{r 040-Lollipops}
+
+sr_dbl <- map_dbl(df, sqrt)
+# Should return a numerical vector rather than a list
+view(sr_dbl)
+
+```
+
+Pretty Cool! But we can be even more efficient.
+
+### Nested Data
+
+What is nested data? If you know about lists, you are halfway there.
+
+A nested data frame is just a normal data frame, but with more features. It still has columns and rows, but the content of the cells can be:
+  - lists
+  - models
+  - other data frames
+  - plots
+When combined with the `map()` functions, we can manipulate a large amount of data very quickly. 
+
+Now....what does this look like? We'll do some examples using the `gapminder` dataset:
+```{r 040-Elephant Ear}
+
+library(gapminder)
+
+# Take a peak at the dataset
+head(gapminder)
+
+gapminder_nested <- gapminder %>% 
+  group_by(continent) %>% 
+  nest()
+
+gapminder_nested
+```
+The first column is the variable that we grouped by, continent, and the second column is the rest of the data frame corresponding to that group (as if you had filtered the data frame to the specific continent). To see this, the code below shows that the first entry in the data column corresponds to the entire gapminder dataset for Asia.
+
+```{r 040-gapminder}
+gapminder_nested$data[[1]]
+```
+
+So why nest a data frame? It doesn't seem very useful...until you realize you can use other dplyr functions to manipulate objects that can be stored in a list. 
+
+However, many common functions like `mutate()` are applied directly to an entire column (usually a vector), there are problems trying to use these on a list. 
+```{r 040-tutoreos}
+gapminder_nested %>% 
+  mutate(avg_lifeExp = mean(data$lifeExp))
+```
+
+I wanted to extract the life expectancy column from each data frame and create a new one. Why doesn't this work? (Hint: open the nested dataset and look at the column types)
+
+Basically, we need to map the `mean()` function to our nested data. We will first try to do it for just one continent with the `pluck()` function, and then for the whole nested dataset:
+
+```{r 040-Guitar Hero}
+asia <- gapminder_nested %>% pluck('data', 1)
+# Average life expectancy of Asia could be calculated by:
+mean(asia$lifeExp)
+
+
+
+gapminder_nested %>% 
+  mutate(avg_lifeExp = map_dbl(data, ~{mean(.$lifeExp)}))
+```
+Bonus: What other functions could we have used to do this?
+
+
 ## Merging Tidy Data
 
 ### Bind
