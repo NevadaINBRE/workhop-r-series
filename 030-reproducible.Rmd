@@ -88,9 +88,17 @@ In a "project-oriented" workflow, your IDE can manage the project by automatical
 
 By letting your IDE manage the project and the working directory, you can set relative file paths ensuring that everything will work even if the project is opened on another computer. In general, the working directory should be the top level project directory, and all paths should be relative to that.
 
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/03-creating-project-with-renv.webm" type="video/webm">
+</video>
+
 #### (Optional) Set up a virtual environment
 
 A virtual environment is a fancy way to describe a system of managing package versions and other dependencies. In R, there is a library called `renv` that can keep track of libraries installed and used in a project, and can restore the packages when the project is opened on a different computer. This can greatly contribute to reproducibility.
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/03-using-renv.webm" type="video/webm">
+</video>
 
 #### Other resources
 
