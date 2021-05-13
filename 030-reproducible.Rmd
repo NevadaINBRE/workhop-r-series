@@ -149,6 +149,47 @@ When all project folders are organized in the same way, the time spent searching
 
 ## Data is immutable
 
+What does immutable mean to you? 
+
+Raw data should STAY raw data. 
+
+### Large File Storage
+
+github is great at tracking changes made to code and documents, but what if that code produces large image or video files? Or you have massive Illumina datasets that you canot store on github? 
+
+- Git Large File Storage
+Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+
+If you have git, using their large file storage works very similarly. First, set up your account to use LFS by running (from the command line):
+```{bash 030-A}
+git lfs install
+```
+
+In each Git repository where you want to use Git LFS, select the file types you'd like Git LFS to manage (or directly edit your .gitattributes). You can configure additional file extensions at anytime.
+
+```{bash 030-B}
+git lfs track "*.psd"
+# make sure .gitattributes is tracked
+git add .gitattributes
+```
+Note: That defining the file types Git LFS should track will not, by itself, convert any pre-existing files to Git LFS, such as files on other branches or in your prior commit history
+
+
+Now, just commit and push to github as you normally would:
+```{bash 030-C}
+git add file.psd
+git commit -m "Add design file"
+git push origin main
+```
+
+
+- Box
+If you have a UNR email address, you automatically have box storage that is available to you. Box is great for storing all of your files in one place, and does actively track changes made to your files that can easily be reversed by you or someone that you have shared the directory with. 
+
+
+This type of storage can reproducibly track any changes that have been made to your large files over the course of your project and helps in avoiding a directory that looks like: gif_v1, gif_v2, gif_v3, etc.
+
+
 ## Dynamic documents and reports
 
 ## Tracking a project over time
