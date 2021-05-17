@@ -10,11 +10,18 @@ To learn everything there is to know about R, [read the docs](https://cran.r-pro
 
 ## Introductions and Overview
 
-This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. R basics will be covered, such as using the command line as a calculator, storing values in a variable, basic data structures (vector, matrix, list, data frame, etc.), and data types. We will show how to load basic data sets and access rows/columns, and summarize data with statistics and plots. We will also cover some considerations when choosing R over another language.
+- Alex Knudson
+  - Graduated from UNR in December 2020 with my MS in Stat and DS
+  - Learning programming for 6 years
+  - Programming with R for 3 years
+  - Working with Juli and the Bioinformatics center for half a year
+
+This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. We will cover the basics of R, such as using the command line as a calculator, working with variables, simple data structures, and data types. We will show how to load data sets into R, and how to summarize data with statistics and plots. At the end we will also discuss some considerations when choosing R over other programming languages like Python or SPSS.
 
 ## Opening the R command line
 
-The R command line interface (CLI) is a *terminal* or console for entering R commands. A *command* is a way of giving the computer some information and having it perform a task.
+- The R command line interface (CLI) is a simple interface for entering R commands
+- A *command* is a way of giving the computer some information and having it perform a task
 
 ### Open in Windows
 
@@ -224,12 +231,6 @@ We can see what is stored in those variables by typing them into the console:
 # complex
 
 # character
-
-```
-
-
-```{r 010-Needless Storm}
-# show the element type
 
 ```
 
