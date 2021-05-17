@@ -1,6 +1,5 @@
 --- 
 title: "R for Data Science Bootcamp"
-author: "Alex Knudson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -18,3 +17,35 @@ knitr::write_bib(x = c(
 
 # Introduction {-}
 
+<img src="media/img/Rlogo.png" style="width: 100px; float: left; margin: 0px 20px 20px 0px;">
+
+NV INBRE and the Nevada Bioinformatics Center are pleased to announce the R for Data Science Bootcamp. R is a complete, flexible, and open source system for statistical analysis and graphics, and has become a tool of choice for biologists and biomedical scientists.
+
+These five sessions will introduce R and RStudio through hands-on learning activities. **No prior data analysis experience is necessary!** Participants will receive example data sets to practice data manipulation, organization, and graphical exploration. Participants are also encouraged to bring their own data and data challenges. In addition, major concepts of data science such as reproducibility will be addressed. Participants will gain the skills necessary to manage and organize data, run basic analyses, and generate professional documents and figures in R.
+
+## Audience and Prerequisites {-}
+
+No prior knowledge of data analytics or coding are necessary! This bootcamp is addressed to beginners wanting to become familiar with the R syntax, environment, and the most common commands to start using R to explore, interpret, and present their data.
+
+Although there are no prerequisites for this bootcamp, you are encouraged to go through some of the R documentation available here.
+
+Please also note this course **is NOT a training on statistics** but rather a training on how to use R to perform different tasks.
+
+
+## Additional Information {-}
+
+Coordinator: Juli Petereit
+
+Non-UNR affiliates will receive a parking pass sponsored by NV INBRE.
+
+Participants attending all section will receive a certificate of completion. 
+
+Important: 
+
+- Applications from TMCC, WNC, and SNU will receive priority
+- Attendance is required in-person
+
+
+## Acknowledgements {-}
+
+This bootcamp was made possible by a grant from the National Institute of General Medical Sciences (GM103440) from the National Institutes of Health.

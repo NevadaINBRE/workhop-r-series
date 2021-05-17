@@ -49,8 +49,9 @@ library(tidyverse)
 df <- c(1,9,16,100,20,5,304,19)
 sr <- map(df, sqrt)
 # notice you do not need the () after the function as you would if executing from console
-view(sr)
+sr
 ```
+
 Can't we just use our function on the character vector though?
 
 ```{r 040-MooCow2}

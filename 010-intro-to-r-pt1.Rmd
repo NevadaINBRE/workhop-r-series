@@ -3,13 +3,14 @@
 # Introduction to R: Part One
 
 ```{r 010-setup, include=FALSE}
-library(dagitty)
 library(magrittr)
 ```
 
 To learn everything there is to know about R, [read the docs](https://cran.r-project.org/doc/manuals/R-lang.html). To learn just enough to be dangerous, follow along :)
 
 ## Introductions and Overview
+
+This workshop serves as a gentle introduction to programming with R, with a focus on application to data science and research. R basics will be covered, such as using the command line as a calculator, storing values in a variable, basic data structures (vector, matrix, list, data frame, etc.), and data types. We will show how to load basic data sets and access rows/columns, and summarize data with statistics and plots. We will also cover some considerations when choosing R over another language.
 
 ## Opening the R command line
 
@@ -27,9 +28,9 @@ The R command line interface (CLI) is a *terminal* or console for entering R com
 
 ### Open in Linux
 
--   application menu
--   dock shortcut
--   terminal (see video below)
+- application menu
+- dock shortcut
+- terminal (see video below)
 
 <video width="100%" autoplay muted loop controls>
   <source src="media/vid/01-opening-r-cli.webm" type="video/webm">
