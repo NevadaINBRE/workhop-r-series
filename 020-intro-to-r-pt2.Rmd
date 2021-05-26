@@ -65,37 +65,6 @@ Writing a script allows one to re-use and re-write code. It means that you can a
 
 You can run the entire script at once using the "source" button (`ctrl+shift+S` or `ctrl+shift+enter`), or you can run line-by-line (`ctrl+enter`).
 
-## The -apply family of functions
-
-- `apply()`
-  - generic
-  - can be used on matrices, data frames, and arrays
-- `lapply()`
-  - takes a list, vector, or data frame
-  - returns a list
-- `sapply()`
-  - "simplified" apply
-  - return type depends on input
-- `tapply()`
-  - table apply
-  - apply a function to a table grouped by some index
-  - useful for e.g. counting number of rows for each factor level
-- `vapply()`
-  - vectorized apply
-  - very strict about the input and output type
-  - useful to ensure a specific return type
-- `rapply()`
-  - recursive `lapply`
-- `replicate()`
-  - a simplified wrapper for `sapply`
-  - replicates an expression `n` times
-  - useful for more complex random sampling
-  
-```{r 020-Sienna Jazz}
-# Load two data examples (list and matrix)
-
-```
-
 ## Control flow
 
 Control flow statement is a statement that results in a choice being made as to which of two or more paths to follow.
@@ -153,7 +122,7 @@ while (some_condition_is_true) {
 }
 ```
 
-We can also further refine the behavior of a loop with the `continue` and `break` commands.
+We can also further refine the behavior of a loop with the `next` and `break` commands.
 
 ```{r 020-Temporary Xylophone, eval=FALSE}
 # Skip if a number is divisible by 7
@@ -193,6 +162,37 @@ switch (stat,
   round = round(x, 2),
   "Default option: no match found"
 )
+```
+
+## The -apply family of functions
+
+- `apply()`
+  - generic
+  - can be used on matrices, data frames, and arrays
+- `lapply()`
+  - takes a list, vector, or data frame
+  - returns a list
+- `sapply()`
+  - "simplified" apply
+  - return type depends on input
+- `tapply()`
+  - table apply
+  - apply a function to a table grouped by some index
+  - useful for e.g. counting number of rows for each factor level
+- `vapply()`
+  - vectorized apply
+  - very strict about the input and output type
+  - useful to ensure a specific return type
+- `rapply()`
+  - recursive `lapply`
+- `replicate()`
+  - a simplified wrapper for `sapply`
+  - replicates an expression `n` times
+  - useful for more complex random sampling
+  
+```{r 020-Sienna Jazz}
+# Load two data examples (list and matrix)
+
 ```
 
 ## Writing functions
