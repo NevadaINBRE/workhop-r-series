@@ -3,7 +3,6 @@ title: "R for Data Science Bootcamp"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: packages.bib
 biblio-style: apalike
 link-citations: yes
 ---
