@@ -46,19 +46,27 @@ The basic arguments for `map()` are:
 
 ```{r 040-MooCow}
 library(tidyverse)
-df <- c(1,9,16,100,20,5,304,19)
-sr <- map(df, sqrt)
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+mn <- map_dbl(df, mean)
 # notice you do not need the () after the function as you would if executing from console
-sr
+
+# can pipe it an input to make the process even easier
+df %>% map_dbl(mean)
 ```
 
 Can't we just use our function on the character vector though?
 
 ```{r 040-MooCow2}
-sqrt(df)
+mean(df)
 
-# No silly! Same applies for data frames
+# No silly!
 ```
+PRACTICE: Compute the mean, median, and sd of every column in the mtcars data
 
 When viewing the ouput of the function that we applied to our dummy data, you may have noticed that while the values are correct, the ouput format is messy.
   - the base `map()` function will always output a list
@@ -72,6 +80,11 @@ sr_dbl <- map_dbl(df, sqrt)
 view(sr_dbl)
 
 ```
+
+What does map(-2:2, rnorm, n = 5) do? 
+
+What about map_dbl(-2:2, rnorm, n = 5)? Why?
+
 
 Pretty Cool! But we can be even more efficient.
 
