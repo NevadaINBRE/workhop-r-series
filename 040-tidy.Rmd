@@ -45,6 +45,9 @@ The basic arguments for `map()` are:
 `.f` - A function or formula
 
 ```{r 040-MooCow}
+# the rnorm function is handy for making test datasets. What does rnorm do?
+?rnorm()
+
 library(tidyverse)
 df <- tibble(
   a = rnorm(10),
@@ -66,7 +69,13 @@ mean(df)
 
 # No silly!
 ```
-PRACTICE: Compute the mean, median, and sd of every column in the mtcars data
+PRACTICE: Compute the mean, median, and sd of every column in the mtcars data.
+
+MORE PRACTICE: Incorporate what we have learned in earlier workshops and create a function to output the mean, median and sd of the mtcars data and save it as a new variable.
+
+EVEN MORE PRACTICE: If you are tracking these changes in a git repo, commit them to your github.
+
+
 
 When viewing the ouput of the function that we applied to our dummy data, you may have noticed that while the values are correct, the ouput format is messy.
   - the base `map()` function will always output a list
@@ -84,6 +93,8 @@ view(sr_dbl)
 What does map(-2:2, rnorm, n = 5) do? 
 
 What about map_dbl(-2:2, rnorm, n = 5)? Why?
+
+How do we interpret this error code?
 
 
 Pretty Cool! But we can be even more efficient.

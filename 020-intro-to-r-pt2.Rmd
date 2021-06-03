@@ -116,9 +116,10 @@ some_condition_is_true <- TRUE
 some_counter <- 0
 number_of_iterations <- 12
 
-while (some_condition_is_true) {
+while (some_counter < 12) {
   # do stuff
   cat("This is iteration:\t", some_counter, "\n")
+  some_counter <- some_counter + 1
 }
 ```
 
@@ -130,9 +131,19 @@ We can also further refine the behavior of a loop with the `next` and `break` co
 # Print "buzz" if a number is divisible by 5
 # end the loop if the number reaches 23
 number <- 1
-while (TRUE) {
+while (number <= 21) {
   # do stuff
   # don't forget to increment `number`
+  if (number %% 3 ==0) {
+    print("fizz")
+  }
+  else if (number %% 5 == 0) {
+     print("buzz")
+  }
+  else {
+    print(number)
+  }
+  number <- number +1
 }
 ```
 
@@ -218,8 +229,12 @@ $$
 ```{r 020-Dreadful Crystal}
 # write a function `huber()` that takes as an input a number, x,
 # and returns the Huber value
-huber <- function() {
-  
+huber <- function(x,a=1) {
+  if (abs(x) <= a)  { 
+    return(x^2)
+  } else {
+    return(2*a*abs(x)-a^2)
+  }
 }
 ```
 
@@ -245,8 +260,8 @@ huber <- function() {
 Update the `huber()` function so that the default value of the cutoff $a$ is 1. Check that `huber(3)` returns 5.
 
 ```{r 020-Bitter Python}
-huber <- function() {
-  
+huber <- function(x, a) {
+  ifelse(abs(x) <=1, x^2, 2*a*abs(x)-a^2)
 }
 ```
 
@@ -255,8 +270,9 @@ Check that `huber(a=1, x=3)` returns 5. Check that `huber(1, 3)` returns 1. Why 
 Finally, we can *vectorize* this function over a set of inputs in two different ways:
 
 ```{r 020-Dusty Needless Summer}
-# ifelse()
+ ifelse()
 # Vectorize()
+
 ```
 
 ## Working with libraries
