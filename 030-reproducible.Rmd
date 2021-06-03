@@ -72,6 +72,37 @@ When starting a new project using SCM, it is often easier to first create the *r
 
 For simple projects with only a couple of contributors, a GUI application can work fine. For more complex projects with many contributors, it is recommended to become familiar with using git in a terminal (command line interface -- CLI).
 
+#### Creating a GitHub Repository
+
+*It is assumed that you have created a GitHub account.*
+
+- Open [GitHub.com](https://github.com/)
+- Start creating a new repo
+  - There is a "new" button on the left and a "+" button at the top right
+- Choose a project (repository) name (no spaces)
+- Make it public or private
+  - a private repo may not be supported by all free Git GUI's
+- Optional
+  - `README.md` is a special file that gets rendered in Markdown and is displayed to anyone who may view your repo ([see here](https://github.com/tidyverse/dplyr#readme) for an example)
+  - `.gitignore` is a file recognized by git that allows you to optionally ignore (not keep track of) files that match a specified pattern (e.g. a folder name or path, log files, etc.)
+  - Choose a license so that others know what they can and cannot do with your work
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/03-creating-github-repo.webm" type="video/webm">
+</video>
+
+#### Cloning a GitHub Repository
+
+- Download and install the GitHub Desktop app
+- Select the "Clone a Repository" button and browse to the newly created repo
+- Select a download location (recommend creating a Projects folder)
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/03-cloning-github-repo.webm" type="video/webm">
+</video>
+
+"Cloning" essentially means that you are downloading the repository to your *local machine* from the *remote host*.
+
 #### Other resources
 
 - [git](https://git-scm.com/) (the underlying SCM software)
@@ -81,6 +112,7 @@ For simple projects with only a couple of contributors, a GUI application can wo
   - Part of the Atlassian group (Trello, Jira, Sourcetree)
 - [git best practices](https://sethrobertson.github.io/GitBestPractices/) (reference)
 - [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) branching model (reference)
+- [Choose a license](https://choosealicense.com/) explanation of various common software licenses
 
 ### Start thinking about a project-oriented workflow
 
@@ -88,8 +120,10 @@ In a "project-oriented" workflow, your IDE can manage the project by automatical
 
 By letting your IDE manage the project and the working directory, you can set relative file paths ensuring that everything will work even if the project is opened on another computer. In general, the working directory should be the top level project directory, and all paths should be relative to that.
 
+In the video below, we create a new project from the repository that we cloned earlier.
+
 <video width="100%" autoplay muted loop controls>
-  <source src="media/vid/03-creating-project-with-renv.webm" type="video/webm">
+  <source src="media/vid/03-creating-project-from-folder.webm" type="video/webm">
 </video>
 
 #### (Optional) Set up a virtual environment
@@ -139,6 +173,24 @@ When all project folders are organized in the same way, the time spent searching
 └── scratch        <- Other scratch files for testing, etc.
 ```
 
+### Committing Changes to GitHub
+
+When you create new files and folders in your github project, they are not automatically tracked. Files need to be "staged" and then "committed". Finally, commits need to be "pushed" to the remote location (GitHub) in order to be backed up.
+
+This leads to a simple workflow:
+
+1. write code, add files, etc.
+2. stage the changes in GitHub Desktop
+3. write a useful commit message
+4. repeat steps 1-3 throughout the day
+5. push the changes to remote
+
+It's a good idea to commit early and commit often. Git works by tracking the *differences* between commits, so there's no need to worry about having too many commits that take up a lot of memory.
+
+<video width="100%" autoplay muted loop controls>
+  <source src="media/vid/03-committing-changes.webm" type="video/webm">
+</video>
+
 ## Coding practices
 
 ### Re-using code
@@ -153,13 +205,144 @@ When all project folders are organized in the same way, the time spent searching
 
 ### Writing comments
 
+In a perfect world, code should be self-documenting. For example, the following code should be (relatively) easy to reason about:
+
+```r
+df_raw   <- read_raw_temperature_data("path/to/file.txt")
+df_clean <- parse_raw_temperature_data(df_raw)
+
+write.csv(df_clean, file = "data/processed/temperature_2020.csv")
+
+p <- plot_temperature_by_month(df_clean)
+```
+
+The specifics of what each function is doing is hidden from us, the reader, but it's clear that this program reads in raw data, cleans it up in some way, writes the clean data back to a new file, and then produces a plot. No comments are required in this code.
+
+However, sometimes comments are necessary to further explain the reasoning behind code. For example, a perfect power number is an integer that can be written in the form of $a^b = m$ where $a$, $b$, and $m$ are integers, and $b \ge 2$. Here is a function that checks if a number is a perfect power:
+
+```{r 030-Serious Frozen Canal}
+is_perfect_power <- function(n) {
+  p <- numbers::primeFactors(n)
+  e <- table(p)
+  
+  if (length(e) == 1 && e > 1)
+    return(TRUE)
+  
+  if (!all(e > 1))
+    return(FALSE)
+  
+  if (numbers::mGCD(e) == 1)
+    return(FALSE)
+  
+  TRUE
+}
+
+is_perfect_power(81)  # 3^4
+is_perfect_power(72)  # 2^3 * 3^2
+is_perfect_power(144) # 2^4*3^2 -> 2^2*2^2*3^2
+```
+
+As it is, it is difficult to understand what it is doing or why it is doing it. Let's break down the logic. If $m$ is a perfect power, then it can be written as $a^b$. If $a$ is not prime, then it can further be written as $(f \cdot g)^b \Rightarrow f^b \cdot g^b$. We can keep breaking down $a$ into its prime factors, and each prime factor will have an exponent associated with it (number of times the prime factor is present). For example, 
+
+$$48 \rightarrow 6\cdot 8 \rightarrow 2 \cdot 3 \cdot 2 \cdot 2 \cdot 2 \rightarrow 2^4 \cdot 3^1$$
+
+```{r 030-Third Eagle, eval=TRUE}
+numbers::primeFactors(48)
+table(numbers::primeFactors(48))
+```
+
+So we see that the first two lines in the function are computing the prime factors, and then counting each prime (getting the exponents).
+
+The first test checks to see if there is only one prime factor of the number (like the number 27). If so, then check to see if the exponent is greater than or equal to 2 (see the definition of perfect power above). In this case, the number must be a perfect power, and we can return `TRUE`.
+
+The second test then checks to see if all the exponents are greater than or equal to 2. If not, then we can eliminate the given number as a possible perfect power.
+
+The final check is tricky. If the greatest common divisor between two (or more) numbers is 1, then they are relatively prime (share no common factor). In this case, the number cannot be written as a perfect power. Take 144 as an example.
+
+$$144 \rightarrow 2^4 \cdot 3^2$$
+
+The exponents are not all the same, but the GCD of 4 and 2 is 2, so the number can be written as
+
+$$2^2 \cdot 2^2 \cdot 3^2 \rightarrow (2\cdot 2\cdot 3)^2 \rightarrow 12^2$$
+
+which we can then see is a perfect power. We cannot do this same process if the GCD is 1.
+
+Let's now add some comments to the function to make it more understandable:
+
+```{r 030-Surreal Harsh Tiger, eval=FALSE}
+# a perfect power is a number that can be written as `a^b` where `a` and `b` are positive
+# integers and `b >= 2`
+is_perfect_power <- function(n) {
+  # computes the prime factorization and gets the exponent associated with each prime
+  p <- numbers::primeFactors(n)
+  e <- table(p)
+  
+  # if there is only one prime factor, then its exponent must be >= 2
+  # e.g. 81 -> 3^4 -> perfect power
+  # e.g. 23 -> 23^1 -> not a perfect power
+  if (length(p) == 1 && e >= 2)
+    return(TRUE)
+  
+  # if there are more than one prime factors, all exponents must be >= 2 by definition
+  if (!all(e >= 2))
+    return(FALSE)
+  
+  # if the GCD of the exponents is 1, then the number cannot be written in a way where the
+  # exponents of all factors are the same
+  # e.g.  144 -> 2^4*3^2 GCD(4, 2) = 2 -> 2^2*2^2*3^2 -> (2*2*3)^2 -> perfect power
+  # e.g. 1944 -> 2^3*3^5 -> GCD(3, 5) = 1 -> not a perfect power
+  if (numbers::mGCD(e) == 1)
+    return(FALSE)
+  
+  # if we've made it to here, then by process of elimination the number is a perfect power
+  TRUE
+}
+```
+
+At this point, our function now has more comments than code, which means that we may be better off writing a longer description above the function and cutting out some of examples in the code. The main idea is that your future self should be able to come and read the code you've written and understand what is being done and why.
+
+From the Tidyverse style guide:
+
+>In data analysis code, use comments to record important findings and analysis decisions. If you need comments to explain what your code is doing, consider rewriting your code to be clearer. If you discover that you have more comments than code, consider switching to R Markdown.
+
 ## Utilizing existing libraries
+
+- Avoid reinventing the wheel
+- Keeps projects "modular"
+- Others may already be familiar with code from popular packages
+
+### Great packages to be aware of
+
+- [Tidyverse](https://www.tidyverse.org/)
+  - "metapackage"
+  - installs a collection of libraries that all have similar syntax
+  - data import, cleaning, visualization, and wrangling
+  - useful programming tools (glue, magrittr, purrr)
+- [fable](http://fable.tidyverts.org/)
+  - used for time series modeling and analysis
+  - has an associated online book: [Forecasting: Principles and Practice](https://otexts.com/fpp3/)
+  - replaces the older [forecast](https://pkg.robjhyndman.com/forecast/) library (fpp2)
+- [zoo](https://cran.r-project.org/web/packages/zoo/)
+  - a different and popular time series package
+- [caret](https://topepo.github.io/caret/)
+  - a set of functions that attempt to streamline the process for creating predictive models
+- [rstanarm](https://mc-stan.org/rstanarm/) and [rstan](https://mc-stan.org/rstan/)
+  - comprehensive Bayesian modeling and inference
+  - visualization packages like [bayesplot](https://mc-stan.org/bayesplot/)
+  - cross validation via [loo](https://mc-stan.org/loo/)
+- rmarkdown, knitr, bookdown, posterdown, ...
+  - packages for creating elegant reports, slides, posters, and more using R and Markdown
+  - kableExtra: for creating pretty tables
+  - patchwork: for arranging ggplots
+- [Great R packages for data import, wrangling and visualization](https://www.computerworld.com/article/2921176/great-r-packages-for-data-import-wrangling-visualization.html)
 
 ## Data is immutable
 
 What does immutable mean to you? 
 
-Raw data should STAY raw data. 
+Raw data should STAY raw data.
+
+[example given during lecture using psychometric data]
 
 ### Large File Storage
 
@@ -169,37 +352,54 @@ github is great at tracking changes made to code and documents, but what if that
 Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
 
 If you have git, using their large file storage works very similarly. First, set up your account to use LFS by running (from the command line):
-```{bash 030-A}
+```{bash 030-Pure Smoke}
 git lfs install
 ```
 
 In each Git repository where you want to use Git LFS, select the file types you'd like Git LFS to manage (or directly edit your .gitattributes). You can configure additional file extensions at anytime.
 
-```{bash 030-B}
+```{bash 030-White Beta}
 git lfs track "*.psd"
 # make sure .gitattributes is tracked
 git add .gitattributes
 ```
+
 Note: That defining the file types Git LFS should track will not, by itself, convert any pre-existing files to Git LFS, such as files on other branches or in your prior commit history
 
-
 Now, just commit and push to github as you normally would:
-```{bash 030-C}
+
+```{bash 030-Intense Backpack}
 git add file.psd
 git commit -m "Add design file"
 git push origin main
 ```
 
 
-- Box
+**Box**
+
 If you have a UNR email address, you automatically have box storage that is available to you. Box is great for storing all of your files in one place, and does actively track changes made to your files that can easily be reversed by you or someone that you have shared the directory with. 
 
-
-This type of storage can reproducibly track any changes that have been made to your large files over the course of your project and helps in avoiding a directory that looks like: gif_v1, gif_v2, gif_v3, etc.
-
+This type of storage can reliably track any changes that have been made to your large files over the course of your project and helps in avoiding a directory that looks like: gif_v1, gif_v2, gif_v3, etc.
 
 ## Dynamic documents and reports
 
-## Tracking a project over time
+### R Markdown
 
-## Conclusion
+[in session example from scratch]
+
+### R Markdown Presentations
+
+- https://github.com/adknudson/UNR-Masters-Thesis/blob/master/presentation/defense_presentation.Rmd
+
+### Bookdown
+
+[in session overview including examples]
+
+- This workshop series
+- My UNR thesis
+
+### Posterdown
+
+[in session example]
+
+- https://github.com/adknudson/tramm
