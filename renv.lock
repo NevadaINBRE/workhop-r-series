@@ -436,6 +436,13 @@
       "Repository": "CRAN",
       "Hash": "7c24ab3a1e3afe50388eb2d893aab255"
     },
+    "numbers": {
+      "Package": "numbers",
+      "Version": "0.8-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "07c41ed0625b14ba5b7af6207a686b31"
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "1.4.4",
