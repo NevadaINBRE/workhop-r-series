@@ -2,5 +2,7 @@ knitr::opts_chunk$set(
   echo = TRUE,
   eval = FALSE,
   comment = "#>",
-  cache = TRUE
+  cache = TRUE,
+  warning = FALSE,
+  message = FALSE
 )
