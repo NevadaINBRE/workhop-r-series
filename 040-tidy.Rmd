@@ -2,7 +2,6 @@
 library(kableExtra)
 library(tidyverse)
 library(lubridate)
-library(gapminder)
 ```
 
 # Tidy R
@@ -130,9 +129,9 @@ religion$income <- factor(religion$income, levels = c("<$10k", "$10-20k", "$20-3
 counts <- count(religion, reltrad, income)
 names(counts)[1] <- "religion"
 
-raw <- pivot_wider(counts, names_from = income, values_from = n)
+pew_raw <- pivot_wider(counts, names_from = income, values_from = n)
 
-raw %>%
+pew_raw %>%
   select(all_of(1:7)) %>%
   head(10) %>%
   kable(caption = "Column header with variables")
@@ -157,17 +156,17 @@ if (!file.exists("data/tb.csv")) {
   download.file("https://raw.githubusercontent.com/hadley/tidy-data/master/data/tb.csv",
                 "data/tb.csv")
 }
-raw <- read.csv("data/tb.csv", na.strings = "")
-raw$new_sp <- NULL
-raw <- subset(raw, year == 2000)
-names(raw)[1] <- "country"
+tb_raw <- read.csv("data/tb.csv", na.strings = "")
+tb_raw$new_sp <- NULL
+tb_raw <- subset(tb_raw, year == 2000)
+names(tb_raw)[1] <- "country"
 
-names(raw) <- str_replace(names(raw), "new_sp_", "")
-raw$m04 <- NULL
-raw$m514 <- NULL
-raw$f04 <- NULL
-raw$f514 <- NULL
-raw %>%
+names(tb_raw) <- str_replace(names(tb_raw), "new_sp_", "")
+tb_raw$m04 <- NULL
+tb_raw$m514 <- NULL
+tb_raw$f04 <- NULL
+tb_raw$f514 <- NULL
+tb_raw %>%
   as_tibble() %>%
   select(all_of(1:11)) %>%
   head(10) %>%
@@ -190,15 +189,14 @@ ages <- c(
   "u" = NA
 )
 
-
-clean <- raw %>%
+tb_clean <- tb_raw %>%
   pivot_longer(cols = `m014`:`fu`, names_to = "column", values_to = "cases",
                values_drop_na = TRUE) %>%
   arrange(country, column, year) %>%
   separate(column, c("sex", "age"), sep = 1) %>%
   mutate(age = factor(ages[age], levels = ages))
 
-clean %>%
+tb_clean %>%
   head(10) %>%
   kable()
 ```
@@ -246,18 +244,18 @@ values <- data.frame(name = names, start = starts, end = ends)
 cols <- rbind(cols, values)
 
 # Load data and subset to small example
-raw <- read_fwf2("data/weather.txt",  cols)
-raw <- subset(raw, year == 2010 & element %in% c("TMIN", "TMAX")) 
-raw <- raw[, c(1:4, which(stringr::str_detect(names(raw), "value")))]
-raw$id <- str_c(str_sub(raw$id, 1, 2), str_sub(raw$id, -5, -1))
+weather_raw <- read_fwf2("data/weather.txt",  cols)
+weather_raw <- subset(weather_raw, year == 2010 & element %in% c("TMIN", "TMAX")) 
+weather_raw <- weather_raw[, c(1:4, which(stringr::str_detect(names(weather_raw), "value")))]
+weather_raw$id <- str_c(str_sub(weather_raw$id, 1, 2), str_sub(weather_raw$id, -5, -1))
 
-names(raw)[-(1:4)] <- str_c("d", 1:31)
-raw[raw == -9999] <- NA
-raw[-(1:4)] <- raw[-(1:4)] / 10 
-rownames(raw) <- NULL
-raw$element <- tolower(raw$element)
+names(weather_raw)[-(1:4)] <- str_c("d", 1:31)
+weather_raw[weather_raw == -9999] <- NA
+weather_raw[-(1:4)] <- weather_raw[-(1:4)] / 10 
+rownames(weather_raw) <- NULL
+weather_raw$element <- tolower(weather_raw$element)
 
-raw %>%
+weather_raw %>%
   head(10) %>%
   kable()
 ```
@@ -265,7 +263,7 @@ raw %>%
 **Tidy**
 
 ```{r 040-Old-Postal, echo=FALSE, eval=TRUE}
-clean <- raw %>%
+weather_clean <- weather_raw %>%
   pivot_longer(cols = d1:d31, names_to = "day", values_to = "value", values_drop_na = TRUE) %>%
   mutate(day = stringr::str_remove(day, "d"),
          day = as.integer(day),
@@ -273,7 +271,7 @@ clean <- raw %>%
   select(-c(year, month, day)) %>%
   pivot_wider(id_cols = c(id, date), names_from = element, values_from = value)
 
-clean %>%
+weather_clean %>%
   head(10) %>%
   kable()
 ```
@@ -290,7 +288,7 @@ if (!file.exists("data/billboard.csv")) {
   )
 }
 
-raw <- read_csv("data/billboard.csv",
+billboard_raw <- read_csv("data/billboard.csv",
                 col_types = cols(time = col_character())) %>%
   select(year, artist.inverted, track, time, date.entered, x1st.week:x76th.week) %>%
   rename(artist = artist.inverted) %>%
@@ -299,9 +297,9 @@ raw <- read_csv("data/billboard.csv",
          track = stringr::str_replace(track, " \\(.*?\\)", "")) %>%
   arrange(year, artist, track)
 
-names(raw)[-c(1:5)] <- str_c("wk", 1:76)
+names(billboard_raw)[-c(1:5)] <- str_c("wk", 1:76)
 
-raw %>%
+billboard_raw %>%
   select(all_of(1:8)) %>%
   head(10) %>%
   kable()
@@ -310,12 +308,12 @@ raw %>%
 **Half Tidy**
 
 ```{r 040-Flying-Vegetable, echo=FALSE, eval=TRUE}
-raw_tidy <- raw %>%
+billboard_raw_tidy <- billboard_raw %>%
   pivot_longer(cols = wk1:wk76, names_to = "week", values_to = "rank", values_drop_na = TRUE) %>%
   mutate(week = str_remove(week, "wk"),
          week = as.integer(week))
 
-raw_tidy %>%
+billboard_raw_tidy %>%
   head(10) %>%
   kable()
 ```
@@ -323,13 +321,13 @@ raw_tidy %>%
 **Tidy**
 
 ```{r 040-Boiling-Omega, echo=FALSE, eval=TRUE}
-song <- raw_tidy %>%
+song <- billboard_raw_tidy %>%
   select(artist, track, time) %>%
   distinct() %>%
   mutate(id = row_number()) %>%
   relocate(id, .before = 1)
 
-rank <- left_join(raw_tidy, song) %>%
+rank <- left_join(billboard_raw_tidy, song) %>%
   relocate(id, .before = 1) %>%
   select(id, date.entered, rank)
 
@@ -340,19 +338,53 @@ knitr::kables(list(t1, t2))
 
 ### A single observational unit is stored in multiple tables
 
-Common to find data values for individual observational units spread out over multiple tables or files. An example is the US census data, where each data set is split up by the year the census was conducted (e.g. `census_2020`, `census_2010`, etc.). 
+It is common to find data values for individual observational units spread out over multiple tables or files. An example is the US census data, where each data set is split up by the year the census was conducted (e.g. `census_2020`, `census_2010`, etc.). 
 
-## Formatting Tidy Data
+## Formatting to Tidy Data
 
-### Melting (Pivot Longer)
+### Melting/Pivoting Longer/Stacking
+
+```{r 040-Massive-Monkey, eval=TRUE}
+table4a # cases
+table4b # population
+```
+
+### Joins
+
+```{r 040-Pink-Clown, eval=TRUE}
+tidy4a <- table4a
+tidy4b <- table4b
+# join
+```
+
+See the [dplyr cheatsheet](https://www.rstudio.com/resources/cheatsheets/) for a more visual depiction for the various types of joins.
+
+- `bind_rows()` (Base equivalent is `rbind()`)
+- `bind_cols()` (Base equivalent is `cbind()`)
+- `left_join()`, `right_join()`
+- `full_join()`, `inner_join()`
+
+### Casting/Pivoting Wider/Unstacking
+
+```{r 040-Crystal-Stony, eval=TRUE}
+table2
+```
 
 ### String Manipulation
 
-- `separate()`
-- `mutate()`
-- `stringr`
+`separate()` (the opposite is `unite()`)
 
-### Casting (Pivot Wider)
+```{r 040-Brutal-Flea, eval=TRUE}
+table3
+```
+
+`package:stringr`
+
+The `stringr` package is a collection of consistent functions that make operations on strings easier. It is largely a wrapper for the `stringi` package.
+
+```{r 040-Lonesome-Tuba, eval=TRUE}
+ls("package:stringr")
+```
 
 ## Manipulating Tidy Data
 
@@ -360,142 +392,54 @@ Select, transform, summarize
 
 ### Group by and Summarize
 
+```{r 040-Surreal-Clown, eval=TRUE}
+library(gapminder)
+glimpse(gapminder)
+```
+
+
 ## Minimizing Repetition
 
-### Purrr
+### `package:purrr`
 
-purrr: part of the tidyverse, the basic function `map()` is very similar to the `apply` family of functions.
-  - The goal is to minimize repetition, while maximizing replication. 
-  - Keep your code D.R.Y.
+`purrr`: part of the tidyverse, the basic function `map()` is very similar to the `apply` family of functions
+
+- The goal is to minimize repetition, while maximizing replication
+- Keep your code D.R.Y.
   
 The basic arguments for `map()` are:
-`.x` - A list or vector (can be logical,integer,numeric,character)
-`.f` - A function or formula
 
-```{r 040-MooCow}
-# the rnorm function is handy for making test datasets. What does rnorm do?
-?rnorm()
+- `.x`: A list or vector
+- `.f`: A function or formula
 
-library(tidyverse)
+```{r 040-Magenta-Metaphor, eval=TRUE}
 df <- tibble(
   a = rnorm(10),
   b = rnorm(10),
   c = rnorm(10),
   d = rnorm(10)
 )
-mn <- map_dbl(df, mean)
-# notice you do not need the () after the function as you would if executing from console
-
+# notice you do not need the () after the function as you would if executing from consol
+map(df, mean)
 # can pipe it an input to make the process even easier
-df %>% map_dbl(mean)
+df %>% map(mean)
 ```
 
-Can't we just use our function on the character vector though?
+You may have noticed that the output format is not necessarily in the format that we might expect. The `map()` function always outputs a list.
 
-```{r 040-MooCow2}
-mean(df)
+There are helper functions that are explicit about the return types of a map function: `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()` return an atomic vector of the indicated type (or die trying).
 
-# No silly!
-```
-
-PRACTICE: Compute the mean, median, and sd of every column in the mtcars data.
-
-MORE PRACTICE: Incorporate what we have learned in earlier workshops and create a function to output the mean, median and sd of the mtcars data and save it as a new variable.
-
-EVEN MORE PRACTICE: If you are tracking these changes in a git repo, commit them to your github.
-
-
-
-When viewing the ouput of the function that we applied to our dummy data, you may have noticed that while the values are correct, the ouput format is messy.
-  - the base `map()` function will always output a list
-  - what about if we want a numeric outcome? or a list of `chr` values that we can plot later?
-  - `map_lgl()`, `map_int()`, `map_dbl()` and `map_chr()` return an atomic vector of the indicated type (or die trying).
-
-Let's see how this works:
-
-```{r 040-Lollipops}
-
-sr_dbl <- map_dbl(df, sqrt)
+```{r 040-Beacon-Fox, eval=TRUE}
 # Should return a numerical vector rather than a list
-view(sr_dbl)
-
+map_dbl(df, mean)
 ```
 
-What does map(-2:2, rnorm, n = 5) do? 
+#### Practice
 
-What about map_dbl(-2:2, rnorm, n = 5)? Why?
+1) What does `map(-2:2, rnorm, n = 5)` do?
+2) What about `map_dbl(-2:2, rnorm, n = 5)`? Why?
+3) How do we interpret the error coming from running the above code?
 
-How do we interpret this error code?
+## Personal Data Sets
 
-
-Pretty Cool! But we can be even more efficient.
-
-### Nested Data
-
-What is nested data? If you know about lists, you are halfway there.
-
-A nested data frame is just a normal data frame, but with more features. It still has columns and rows, but the content of the cells can be:
-  - lists
-  - models
-  - other data frames
-  - plots
-When combined with the `map()` functions, we can manipulate a large amount of data very quickly. 
-
-Now....what does this look like? We'll do some examples using the `gapminder` dataset:
-
-```{r 040-Elephant Ear}
-# Take a peak at the dataset
-head(gapminder)
-
-gapminder_nested <- gapminder %>% 
-  group_by(continent) %>% 
-  nest()
-
-gapminder_nested
-```
-
-The first column is the variable that we grouped by, continent, and the second column is the rest of the data frame corresponding to that group (as if you had filtered the data frame to the specific continent). To see this, the code below shows that the first entry in the data column corresponds to the entire gapminder dataset for Asia.
-
-```{r 040-gapminder}
-gapminder_nested$data[[1]]
-```
-
-So why nest a data frame? It doesn't seem very useful...until you realize you can use other dplyr functions to manipulate objects that can be stored in a list. 
-
-However, many common functions like `mutate()` are applied directly to an entire column (usually a vector), there are problems trying to use these on a list. 
-
-```{r 040-tutoreos}
-gapminder_nested %>% 
-  mutate(avg_lifeExp = mean(data$lifeExp))
-```
-
-I wanted to extract the life expectancy column from each data frame and create a new one. Why doesn't this work? (Hint: open the nested dataset and look at the column types)
-
-Basically, we need to map the `mean()` function to our nested data. We will first try to do it for just one continent with the `pluck()` function, and then for the whole nested dataset:
-
-```{r 040-Guitar-Hero}
-asia <- gapminder_nested %>% pluck('data', 1)
-# Average life expectancy of Asia could be calculated by:
-mean(asia$lifeExp)
-
-
-
-gapminder_nested %>% 
-  mutate(avg_lifeExp = map_dbl(data, ~{mean(.$lifeExp)}))
-```
-
-Bonus: What other functions could we have used to do this?
-
-
-## Merging Tidy Data
-
-### Bind
-
-### Join
-
-
-
-
-
-
-
+It's time for you all to share your own personal data sets and let's see if we can get them into a Tidy format.
