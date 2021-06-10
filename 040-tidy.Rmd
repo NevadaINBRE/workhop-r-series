@@ -1,4 +1,6 @@
-```{r 040-setup, include=FALSE, eval=TRUE}
+```{r 040-setup, include=FALSE, eval=TRUE, cache=FALSE}
+options(knitr.kable.NA = '---')
+
 library(kableExtra)
 library(tidyverse)
 library(lubridate)
