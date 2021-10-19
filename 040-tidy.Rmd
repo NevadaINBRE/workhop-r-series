@@ -338,6 +338,31 @@ t2 <- kable(head(rank, 17))
 knitr::kables(list(t1, t2))
 ```
 
+### Lets try an example with biological data (16S)
+
+**Messy**
+
+```{r 040-boiled, echo=FALSE, eval=TRUE}
+if (!file.exists("data/billboard.csv")) {
+  download.file(
+    # need to upload a microbiome OTU table to github and download that to here
+    "https://raw.githubusercontent.com/hadley/tidy-data/master/data/billboard.csv",
+    "data/billboard.csv"
+  )
+}
+
+data %>% 
+  select(-label, -numOtus) %>% 
+  rename(SampleName = Group) %>% 
+  mutate(SampleName = metadata$SampleName) %>% 
+  pivot_longer(-SampleName, names_to="otu", values_to = "count")
+
+# then once the data is in a "long" format where each row is one observation, can merge with other DFs (like metadata) very easily
+```
+
+
+
+
 ### A single observational unit is stored in multiple tables
 
 It is common to find data values for individual observational units spread out over multiple tables or files. An example is the US census data, where each data set is split up by the year the census was conducted (e.g. `census_2020`, `census_2010`, etc.). 
