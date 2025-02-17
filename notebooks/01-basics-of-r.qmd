@@ -1,0 +1,189 @@
+---
+title: "Basics of R, RStudio, and Setting Up the Environment"
+format: html
+editor: visual
+---
+
+Estimated time: 45 minutes
+
+# What is R
+
+R is a programming language focused on statistical computing and graphics. It is commonly used for:
+
+-   Statistical modeling
+-   Data analysis and visualization
+-   Exploratory and reproducible research
+-   Creating high-quality, publication-ready documents
+
+Regarding the last point, `R` can be combined with other tools to produce websites, presentations, books, and other types of documents:
+
+-   [The R for Data Science book](https://r4ds.had.co.nz/)
+-   [The Nevada INBRE site is written in R](https://nevadainbre.github.io/)
+-   [My thesis was written in R](https://adknudson.github.io/UNR-Masters-Thesis/)
+
+# Installing R and RStudio
+
+## Installing R
+
+We can acquire `R` from the R Project website: <https://www.r-project.org/>
+
+1.  Choose a "mirror" site to download from
+
+-   `0-Cloud` is fine
+
+2.  Select the download link for your operating system
+
+-   `macOS`, `Windows`, or `Linux`
+
+3.  Follow the install instructors for your OS
+
+### Check your installation
+
+Run R in the terminal interface:
+
+`<steps are different for different operating systems>`
+
+You should see a start-up message saying which version of R you are running.
+
+```         
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+```
+
+You can run some simple commands like elementary operations:
+
+```{r math-basics}
+#| eval: false
+8 + 4
+1 - 2
+6 * 7
+5 / 3
+9^2
+```
+
+or other mathematical functions:
+
+```{r math-funs}
+#| eval: false
+sqrt(2)
+sin(pi / 4)
+log2(32)
+exp(1)
+```
+
+## Installing RStudio
+
+RStudio can be downloaded from the posit website: <https://posit.co/download/rstudio-desktop/>
+
+Find the download four your operating system and install in the normal way for your OS.
+
+# Overview of RStudio
+
+See the user guide for a more in-depth walk-through: <https://docs.posit.co/ide/user/>
+
+## Pane Layout
+
+Four primary pains:
+
+-   Source pane
+-   Console pane
+-   Environment pane
+-   Output pane
+
+The layout can be modified by opening the `Tools > Global Options > pane layout`
+
+### Source
+
+-   The source pane is where you can view and edit text-based documents and source code
+-   Multiple documents can be opened in separate tabs of the source pane
+-   New source windows can be created in two ways
+    -   `Show in New Window` button
+    -   Drag a source tab onto the desktop
+
+### Console
+
+-   The console pane is an area where executed code output is displayed
+
+-   You can run commands here to test behavior or prototype code
+
+    -   However, it is recommended to prototype code in a script that can be saved
+
+### Environment
+
+-   Displays objects in the current R session
+
+-   Stores recent commands that have been executed
+
+-   Version control system
+
+-   Build tab for building the current project
+
+### Output
+
+-   File browser
+
+-   Plot output
+
+-   List of installed packages
+
+-   Help tab
+
+-   Viewers for document output
+
+## Menu Bar
+
+-   Typical menus: `File`, `Edit`, `View`, `Tools`, `Help`
+
+-   Programming menus: `Code`, `Plots`, `Session`, `Build`, `Debug`, `Profile`
+
+## Settings
+
+`Tools > Global Options`
+
+## Shortcuts
+
+| Name | Shortcut | Description |
+|----|----|----|
+| Command Palette | `Ctrl + Shift + P` | Opens the command palette to quickly run commands |
+| Build Project | `Ctrl + Shift + B` | Builds the current project if it is supported |
+| Run Current Chunk | `Ctrl + Shift + Enter` | Runs the entire code chunk at the cursor location |
+| Run Current Line | `Ctrl + Enter` | Runs the line at the cursor location |
+
+: Useful Shortcuts
+
+# Creating and Saving R Scripts
+
+-   Create a new script
+
+-   Add code
+
+-   Save the script
+
+-   Close and re-open the script
+
+# Installing Packages
+
+*\<what is a package\>*
+
+Two ways to install packages
+
+**Via the console**
+
+``` r
+install.package("packageName")
+```
+
+**Via RStudio**
+
+`Tools > Install Packages`
+
+## Troubleshooting
+
+-   Sometimes a package requires external libraries to function properly
+
+-   Check the console output to see if there are any helpful messages
+
+-   Search online to see if there are detailed steps for installation
+
+Anecdotally, installing packages like the `Tidyverse` in Linux requires installing many external libraries. Windows seems to be better about packaging the external libraries with the package you are installing.

@@ -1,0 +1,121 @@
+---
+title: "Introduction"
+format: html
+editor: visual
+---
+
+# Outline
+
+## Introduction to R for Novice Users
+
+### Basics of R and RStudio
+
+#### Objectives
+
+-   Get familiar with R and RStudio
+
+#### Topics
+
+-   What is R, and why use it?
+-   Installing R and RStudio
+-   Overview of the RStudio interface
+-   Running simple R commands
+-   Creating and saving R scripts
+-   Installing and loading packages
+
+#### Exercises
+
+-   Open RStudio and run basic commands
+-   Install and load a package
+
+### Hands-on Basics
+
+#### Objectives
+
+-   Basic data handling and calculations
+
+#### Topics
+
+-   Assigning variables
+-   Vectors, lists, and data frames
+-   Reading data from CSVs
+-   Indexing and subsetting
+-   Basic summary functions
+
+#### Excercises
+
+-   Load a sample data set
+-   Read a CSV file and explore it
+-   Extract specific columns or rows
+
+### Basic Data Manipulation and Visualization
+
+#### Objectives
+
+-   Basic data manipulation and visualization
+
+#### Topics
+
+-   Creating new columns
+-   Filtering and selecting data
+-   Sorting data
+-   Quick visualizations with `plot()`, `hist()`, and `boxplot()`
+
+#### Excercises
+
+-   Filter and sort data
+-   Create a histogram or scatterplot
+
+## Digging Deeper with Tidyverse
+
+### Data Wrangling with `dplyr` and `tidyr`
+
+#### Objectives
+
+-   Learn about core `dplyr` and `tidyr` functions for data manipulation
+
+#### Topics
+
+-   `dplyr` verbs
+    -   `select()`, `filter()`, `mutate()`, `arrange()`, `group_by()`, `summarize()`
+-   `tidyr` functions for reshaping
+    -   `pivot_longer()`, `pivot_wider()`, `separate()`, `unite()`
+
+#### Exercises
+
+-   Perform filtering, summarizing, and grouping on the `gapminder` dataset
+-   Reshape data using `tidyr`
+
+### Creating Visualizations with `ggplot2`
+
+#### Objectives
+
+-   Build effective visualizations
+
+#### Topics
+
+-   Structure of `ggplot2`
+-   Common geoms
+    -   `geom_point()`, `geom_bar()`, `geom_histogram()`, `geom_line()`
+-   Customizing aesthetics (colors, shaps, sizes)
+-   Adding labels, themes, and facets
+
+#### Excercises
+
+-   Create scatterplots and bar charts
+-   Modify themes and aesthetics
+
+### Applying `tidyverse` in Real-World Scenarios
+
+#### Objectives
+
+-   Apply skills to realistic data analysis problems
+
+#### Topics
+
+-   Case study: Analyzing a dataset
+-   Combining `dplyr` and `ggplot2` for analysis
+
+#### Excercises
+
+-   Perfrom an end-to-end analysis with data manipulation and visualization
