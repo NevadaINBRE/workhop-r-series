@@ -1,0 +1,366 @@
+---
+title: "Vectors, Lists, and Data Frames"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+
+# Vectors
+
+A *vector* is a one-dimensional collection of values of the same type. Vectors are the foundation of data in `R`. Everything in `R` is built upon vectors, making them a crucial concept to understand.
+
+**Key Properties**
+
+-   All elements must be of the same type
+    -   elements will be *coerced* to the *least restrictive type*
+-   Elements of the vector can be accessed by *indexing* using `[ ]`
+-   They allow *vectorized operations*, meaning functions apply to all elements automatically
+
+## Creating Vectors
+
+Vectors can be created by:
+
+**a)** using the *combine* function, `c()`
+
+```{r create-with-combine}
+c(4.5, 2, 3.8)
+c(TRUE, FALSE, FALSE)
+c("Apple", "Banana", "Cherry")
+
+# what happens when you combine multiple vectors?
+```
+
+**b)** ranges and sequences
+
+```{r create-range}
+1:4
+seq(from = 0.1, to = 1.0, by = 0.4)
+```
+
+**c)** built-in vectors
+
+```{r built-in-vecs}
+LETTERS
+letters
+```
+
+## Indexing
+
+You can extract specific elements using single *square brackets* `[ ]`.
+
+```{r vector-indexing}
+numbers <- c(10, 20, 30, 40, 50)
+
+# get first element
+numbers[1]
+
+# get multiple elements
+numbers[c(1, 3, 5)]
+
+# get all except second element
+numbers[-2]
+
+# get all except specific elements
+numbers[-c(1, 3)]
+
+# access using logical conditions
+numbers[c(TRUE, FALSE, FALSE, TRUE, TRUE)]
+numbers[numbers > 20]
+```
+
+### Modifying a Value
+
+Indexing can be combined with assignment.
+
+```{r vector-index-assignment}
+x <- 1:5
+x
+
+x[2] <- 7
+x
+```
+
+## Vectorized Operations
+
+R allows you to apply operations to an entire vector at once.
+
+```{r vectorized-operations}
+# arithmetic operations
+numbers + 5
+numbers * 2
+
+# string operations
+fruits <- c("Apple", "Banana", "Cherry")
+paste(fruits, "Juice")
+
+# logical operations
+numbers > 25
+
+# other functions
+sin(numbers)
+-numbers
+10^(1:4)
+(1:4)^10 # what happens without the parentheses?
+```
+
+## Functions for Vectors
+
+`R` has built-in functions that operate on vectors.
+
+```{r vector-functions}
+length(numbers)
+sum(numbers)
+mean(numbers)
+sort(c(5, 1, 3, 2, 4))
+rev(fruits)
+unique(c(0, 1, 1, 2, 3, 5))
+```
+
+## Coercion
+
+A vector may only contain values of the same type.
+
+```{r coercing-atomic-vector}
+c(TRUE, 5, FALSE)
+c(5, "6", 3 + 4i)
+```
+
+## Vector Exercises
+
+Pick some random numbers
+
+```{r pick-numbers}
+# everyone pick a number between 1 and 10 inclusive
+numbers <- c()
+
+# count the number of occurrences of each pick
+table(numbers)
+```
+
+Explore a uniform distribution
+
+```{r uniform-numbers}
+# construct a U(0, 10) distribution
+
+# how many numbers are there?
+
+# how many numbers are less than 6?
+
+# what proportion of the numbers are less than 6?
+
+# what is the sum of all the numbers?
+
+# what is the mean of all the numbers?
+```
+
+# Matrices
+
+A *matrix* is a 2-dimensional rectangular structure where all the elements are of the same type (just like a vector, but with rows and columns).
+
+**Key Properties**
+
+-   Matrices have rows and columns
+
+-   All elements must be of the same type
+
+    -   elements will be *coerced* to the *least restrictive type*
+
+-   Can be created using the `matrix()` function
+
+-   Indexing uses `[row, column]`
+
+## Creating a Matrix
+
+A matrix can be created with `matrix()`
+
+```{r creating-a-matrix}
+my_matrix <- matrix(1:9, nrow = 3, ncol = 3)
+```
+
+Notice that the matrix is filled *column-wise* by default
+
+```{r show-column-wise-fill}
+my_matrix
+```
+
+To fill the matrix *row-wise*, use `byrow=TRUE`
+
+```{r row-wise-matrix}
+my_matrix <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+my_matrix
+```
+
+**Questions**
+
+1.  Do we need to specify both the number of rows and number of columns?
+2.  What if the data is smaller than the matrix?
+3.  What if the data is larger than the matrix?
+
+## Indexing
+
+Matrices use row and column indexing, `[row, column]`
+
+```{r matrix-indexing}
+# get element in row 2, column 3
+my_matrix[2, 3]
+
+# get entire second row
+my_matrix[2, ]
+
+# get entire first column
+my_matrix[, 1]
+```
+
+We can also index multiple rows and columns.
+
+```{r matrix-indexing-multiple}
+# rows 1 and 3 - columns 2 and 3
+my_matrix[c(1, 3), c(2, 3)]
+
+# first row, twice - columns 1 and 3
+my_matrix[c(1, 1), c(1, 3)]
+```
+
+If the matrix is a single dimension, then `R` will automatically *drop the dimension.*
+
+```{r matrix-drop-dim}
+# dimension dropped to vector
+my_matrix[1, ]
+# force R to keep dimension
+my_matrix[1, , drop = FALSE]
+```
+
+## Matrix Operations
+
+In `R`, Matrices are just vectors in disguise, thus they support vectorized operations in the same way that vectors do. I.e., operations are applied *element-wise*.
+
+```{r matrix-operations}
+my_matrix * 2
+
+matrix_A <- matrix(1:4, nrow = 2)
+matrix_B <- matrix(5:8, nrow = 2)
+matrix_A + matrix_B
+
+# element-wise multiplication
+matrix_A * matrix_B
+
+# true matrix multiplication
+
+
+# square each element
+my_matrix^2
+```
+
+## Functions for Matrices
+
+There are some functions that are designed to specifically work on matrices.
+
+```{r matrix-functions}
+# getting the dimensions
+nrow(my_matrix)
+ncol(my_matrix)
+
+# row and column sums
+rowSums(my_matrix)
+colSums(my_matrix)
+
+# row and column means
+rowMeans(my_matrix)
+colMeans(my_matrix)
+
+# transpose
+t(my_matrix)
+```
+
+Other functions can be applied to the rows or columns of a matrix.
+
+```{r apply-to-matrix}
+# apply function to rows
+apply(my_matrix, MARGIN = 1, FUN = sum)
+
+# apply function to columns
+apply(my_matrix, MARGIN = 2, FUN = mean)
+```
+
+## Matrix Exercises
+
+```{r matrix-exercise}
+# create a matrix of letters
+letter_matrix <- matrix()
+
+# get the diagonal elements of this matrix
+m <- matrix(1:16, nrow = 4)
+```
+
+# Arrays
+
+An *array* is an extension of a matrix, and supports more than two dimensions.
+
+**Key Properties**
+
+-   Arrays have multiple dimensions
+
+-   All elements must be of the same type
+
+    -   elements will be *coerced* to the *least restrictive type*
+
+-   Can be created using the `array()` function
+
+-   Indexing uses `[i, j, k, ...]`
+
+-   Supports vectorized operations
+
+## Creating an Array
+
+An array can be created with `array()`
+
+```{r creating-an-array}
+my_array <- array(1:18, dim = c(3, 3, 2))
+my_array
+```
+
+A 3-dimensional array can be thought of as layers of matrices, where the order is `[row, column, layer]`.
+
+```{r layers-of-matrices}
+# get the second matrix from the array
+my_array[, , 2]
+```
+
+## Reshaping an Array
+
+Arrays (and matrices and vectors) can be reshaped into any other dimension by using the `dim()` method with assignment.
+
+```{r reshape-array}
+dim(my_array) <- c(2, 3, 3)
+my_array
+```
+
+## Array Operations and Functions
+
+Operations and functions work on arrays element-wise, just like matrices and vectors.
+
+```{r array-operations}
+3 * my_array
+
+array_A <- array(2 * (1:18), dim = c(3, 3, 2))
+array_B <- array(3 * (1:18), dim = c(3, 3, 2))
+array_B - array_A
+```
+
+## Array Exercises
+
+What happens if we apply operators to arrays of different dimensions?
+
+```{r dimension-mismatch}
+```
+
+What order does an array get filled with values?
+
+```{r array-fill-order}
+```
+
+Get the row means of each layer of a $2 \times 3 \times 5$ array. Predict what the shape/size/length of the result will be.
+
+```{r array-row-means}
+```

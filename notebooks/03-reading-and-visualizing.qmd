@@ -1,0 +1,19 @@
+---
+title: "Reading and Visualizing Data"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+
+# Reading Data
+
+We can read in data in several ways - some automated and some manually.
+
+## Viewing the Data
+
+## Importing via RStudio
+
+## Importing Manually
+
+# Visualizing Data

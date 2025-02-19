@@ -3,6 +3,8 @@ title: "Hands-On Basics"
 format: html
 number-sections: true
 editor: visual
+execute:
+  eval: false
 ---
 
 # Arithmetic
@@ -24,8 +26,6 @@ Most (if not all) programming languages support basic arithmetic operations.
 **Basic Operations**
 
 ```{r arithmetic-operators}
-#| results: 'hold'
-
 1 + 2
 4 - 3
 5 * 6
@@ -40,8 +40,6 @@ Most (if not all) programming languages support basic arithmetic operations.
 Integer Division (Quotient)
 
 ```{r integer-devision-operator}
-#| results: 'hold'
-
 21 %/% 5
 113 %/% 7
 ```
@@ -49,14 +47,15 @@ Integer Division (Quotient)
 Take care using negative numbers
 
 ```{r integer-division-negative-numbers}
-#| results: 'hold'
+11 %/% 5
+11 %/% -5
+-11 %/% -5
+-11 %/% 5
 ```
 
 Modulus (Remainder)
 
 ```{r modulus-operator}
-#| results: 'hold'
-
 12 %% 5
 31 %% 2
 78 %% 2
@@ -65,8 +64,6 @@ Modulus (Remainder)
 Take care using negative numbers
 
 ```{r modulus-negative-numbers}
-#| results: 'hold'
-
 10 %% 7
 10 %% -7
 -10 %% -7
@@ -124,6 +121,7 @@ What is the total amount owed after $2$ years on $\$500$ loan with an annual int
 | `trunc` | strips the decimal part from a number |
 
 ```{r math-funs}
+abs(-4)
 ```
 
 # Special Numbers
@@ -136,8 +134,6 @@ Math with real numbers follows the [IEEE 754](https://en.wikipedia.org/wiki/IEEE
 | `NaN`  | Floating point representation of **N**ot **a** **N**umber |
 
 ```{r special-floats}
-#| eval: false
-
 1 / 0
 Inf + 1
 
@@ -157,8 +153,6 @@ NaN * 3
 | `NULL`   | Represents an empty object                |
 
 ```{r special-constants}
-#| eval: false
-
 ?pi
 ?NA
 ?NULL
@@ -183,9 +177,10 @@ Logical operators test the "truthiness" of an expression.
 | `|`      | or (vectorized)        |
 
 ```{r logical-operators}
-#| eval: false
-
-
+5 > 3
+10 <= 7
+6 == 7
+-0 != 0
 ```
 
 # Getting Help
@@ -207,8 +202,6 @@ Variables are a way to save intermediate results of a calculation, or to "bind" 
 Assignment is done with the `<-` operator. This is called "left assignment".
 
 ```{r left-assignment}
-#| eval: false
-
 x <- 1
 y <- 2
 ```
@@ -224,8 +217,6 @@ Right assignment is not as common, but can be more intuitive when working with l
 When an *object* is bound to a name, the object can be accessed by the name it is bound to.
 
 ```{r using-variables}
-#| results: 'hold'
-
 x <- 4
 y <- 3
 x + y
@@ -256,9 +247,6 @@ my.variable <- 73
 **Invalid Identifiers**
 
 ```{r invalid-identifiers}
-#| results: 'hold'
-#| error: 0
-
 _x <- 2
 1book <- 10
 ```
@@ -283,8 +271,6 @@ You can get a list of variables in the environment in two ways:
 -   Viewing the list of variables in the `Environment` tab (upper right pane)
 
 ```{r list-of-variables}
-#| eval: false
-
 ls()
 ```
 
@@ -299,8 +285,6 @@ There are a few *atomic* types in the `R` programming language: `logical`, `inte
 In addition to the 4 common atomic types, there are also two other less common atomic types: `complex` and `raw`.
 
 ```{r common-atomic-types}
-#| eval: false
-
 TRUE   # logical
 6L     # integer, notice the 'L' at the end
 -3.14  # double
@@ -308,8 +292,6 @@ TRUE   # logical
 ```
 
 ```{r uncommon-atomic-types}
-#| eval: false
-
 # complex
 7 + 3i
 
@@ -323,8 +305,6 @@ intToBits(2345)
 These are types that may contain more than one type of data. The two most common non-atomic types are `list` and `data.frame`.
 
 ```{r non-atomic-types}
-#| eval: false
-
 list()
 data.frame()
 ```
@@ -336,8 +316,6 @@ data.frame()
 We can check the type of an object by using the `typeof()` method.
 
 ```{r typeof-object}
-#| eval: false
-
 typeof(TRUE)
 typeof(3L)
 typeof(6.1)
@@ -347,8 +325,6 @@ typeof("hello, world")
 We can test for a specific type by using the `is.<type>()` family of functions.
 
 ```{r is-type}
-#| eval: false
-
 is.logical(5)
 is.double(pi)
 is.integer(4.5)
@@ -358,8 +334,6 @@ is.character("I'm a string")
 There are many more checks to use depending on the situation.
 
 ```{r is-type-special}
-#| eval: false
-
 is.numeric(16)
 is.atomic(5+4i)
 is.function(sum)
@@ -369,7 +343,6 @@ is.nan(Inf - Inf)
 Sometimes a number looks like an integer, but is actually a double:
 
 ```{r sneaky-double}
-
 is.integer(4)
 ```
 
@@ -378,8 +351,6 @@ is.integer(4)
 We can convert the data type of one object to the type of another using the `as.<type>()` methods.
 
 ```{r conversion}
-#| eval: false
-
 as.logical(7.8)
 as.integer(4.0)
 as.double(5L)
@@ -391,8 +362,6 @@ as.double("2.718")
 What happens when we combine different types of data?
 
 ```{r mixing-data-types}
-#| eval: false
-
 TRUE + 3L
 5.5 + (4+5i)
 ```
@@ -406,8 +375,6 @@ There are rules for coercion. Types are promoted to the *least restrictive type*
 Can we add numbers and characters?
 
 ```{r numbers-and-characters}
-#| eval: false
-
 5 + "4"
 "1" + 1
 ```
@@ -421,41 +388,7 @@ c(4, 5, "6")
 Not every value can be coerced to every other type, or no robust checks will be performed to ensure validity of a conversion:
 
 ```{r inexact-conversion}
-#| eval: false
-
 as.integer(4.5)
-```
-
-## Vectors
-
--   A *vector* is a collection of *same-type* objects
-    -   a.k.a. an *atomic* vector
--   All elements coerced to the least restrictive type
--   Typically created using the *concatenate* command, `c()`
-
-```{r creating-vectors}
-#| eval: false
-
-# concatenation
-c(4.5, 2, 3.8)
-c(TRUE, FALSE, FALSE)
-
-# ranges and sequences
-1:4 # help(":")
-seq(from = 0.1, to = 1.0, by = 0.4)
-
-# built-in vectors
-LETTERS
-letters
-```
-
-It's called an atomic vector because it may only contain one atomic type.
-
-```{r coercing-atomic-vector}
-#| eval: false
-
-c(TRUE, 5, FALSE)
-c(5, "6", 3 + 4i)
 ```
 
 ## Exercise
@@ -463,8 +396,6 @@ c(5, "6", 3 + 4i)
 1.  Guess the output type:
 
 ```{r guess-output-type}
-#| eval: false
-
 # a "regular" number
 14
 # integer division
@@ -479,9 +410,5 @@ round(pi)
 2.  How can we more strongly check if a given double is an integer?
 
 ```{r check-double-is-integer}
-#| eval: false
-
 
 ```
-
-3.  

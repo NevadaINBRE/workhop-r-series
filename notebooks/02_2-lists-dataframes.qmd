@@ -1,0 +1,356 @@
+---
+title: "Lists and Data Frames"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+
+# Lists
+
+A *list* in `R` is a versatile data structure that can store multiple data types in a single object. Unlike vectors, matrices, and arrays (which require all elements to be of the same type), lists can hold heterogeneous data—numbers, characters, vectors, and even other lists.
+
+**Key Properties**
+
+-   Can store objects of different types
+
+-   Elements can be named for better organization
+
+-   Supports nested structures (lists of lists of lists)
+
+**Related objects in other languages**
+
+-   Python - `Dictionary`
+
+-   Julia - `Dict{Any, Any}`
+
+-   C# - `Dictionary<TKey, TValue>`
+
+-   C++ - `std::map<TKey, TValue>`
+
+## Creating a List
+
+Lists can be created using the `list()` function.
+
+```{r creating-a-list}
+list(1, "b", 5.4)
+list(1:5, letters[1:4], c(3.14, 2.718))
+list("a", list(1, 2), 7)
+```
+
+Elements of the list can be named for easier access.
+
+```{r naming-elements}
+list(a = 1:4, b = c("a", "b", "c"))
+list(letters = letters[1:5], x = 1:10)
+
+my_list <- list(
+  name = "Alice",
+  age = 25,
+  scores = c(90, 85, 88),
+  passed = TRUE
+)
+my_list
+```
+
+## Indexing
+
+Indexing a single element of a list can be done in two ways
+
+**1)** With double brackets `[[ ]]`
+
+```{r double-bracket-index}
+# element at index 3
+my_list[[3]]
+
+# element with name "age"
+my_list[["age"]]
+```
+
+**2)** With the `$` for named objects
+
+```{r named-object-index}
+my_list$name
+```
+
+Accessing using the `$` is convenient because you can use tab completion to get a list of named elements.
+
+### Sub-Lists
+
+Lists can be indexed using single brackets `[ ]` to create *sub-lists*.
+
+```{r creating-sublists}
+my_list[1]
+my_list[2:3]
+my_list[c("name", "scores")]
+```
+
+### Indexing Summary
+
+| Method | Example | Description |
+|----|----|----|
+| `[[ ]]` | `my_list[[2]]`, `my_list[["age"]]` | Gets the *element* at the index |
+| `$` | `my_list$name` | Gets the *element* with the name |
+| `[ ]` | `my_list[3:4]`, `my_list[c("age", "name")]` | Gets a *list* containing the elements |
+
+## Modifying a List
+
+Elements of a list can be added or modified.
+
+```{r modifying-a-list}
+my_list <- list(age = 26)
+
+# changing a value
+my_list$age <- 30
+
+# adding new values
+my_list$numbers <- 1:3
+my_list$letters <- letters[5:7]
+
+
+my_list
+```
+
+What happens if we add a value by index?
+
+```{r adding-value-by-index}
+my_list <- list()
+my_list[[3]] <- 1
+my_list
+```
+
+We can remove values by setting them to `NULL`
+
+```{r removing-elements}
+my_list <- list(
+  name = "Alice",
+  age = 25,
+  scores = c(90, 85, 88),
+  passed = TRUE
+)
+
+my_list$age <- NULL
+
+my_list
+```
+
+Elements can be appended to a list
+
+```{r append-to-list}
+new_list <- append(my_list, list(city = "New York"))
+```
+
+And lists can be combined
+
+```{r combine-lists}
+list1 <- list(a = 1, b = 2)
+list2 <- list(c = 3, d = 4)
+c(list1, list2)
+```
+
+## Nested Lists
+
+Lists can contain other lists.
+
+```{r nested-lists}
+nested_list <- list(
+  person = list(name = "Bob", age = 30),
+  scores = list(math = 85, science = 90)
+)
+
+nested_list$person$name
+nested_list$scores$science
+```
+
+## Unlisting a List
+
+Lists can be *unlisted* to a regular vector.
+
+```{r unlisting}
+my_list <- list(1, "2", 3 + 4i)
+unlist(my_list)
+```
+
+**Caution:** If a list has mixed types (numeric, character, logical), then `unlist()` converts everything to the least restrictive type.
+
+## Functions for Lists
+
+There are a few methods that work directly on lists.
+
+```{r functions-on-lists}
+my_list <- list(
+  name = "Alice",
+  age = 25,
+  scores = c(90, 85, 88),
+  passed = TRUE
+)
+
+length(my_list)
+names(my_list)
+unlist(my_list)
+```
+
+Functions can be applied to each element in a list with the `lapply()` function, which stands for *list apply*.
+
+```{r lapply}
+lapply(my_list, FUN = length)
+```
+
+There are other `*apply()` methods as well:
+
+-   `sapply()` - works like `lapply()` but it trues to simply the output into a vector
+
+-   `vapply()` - similar to `sapply()`, but more strict about the expected output type
+
+## Filtering Lists
+
+You can use the `Filter()` function to return only the elements that match a condition
+
+```{r filter-a-list}
+num_list <- list(a = 1:5, b = 6:10, c = 11:15)
+
+# keep only elements where the mean is greater than 5
+Filter(function(x) mean(x) > 5, num_list)
+```
+
+## Recap
+
+-   Lists are generic vectors
+
+-   Elements can be any kind of object, even other lists
+
+-   Accessing elements of a list can be done with `[[ ]]` or `$`
+
+-   Creating a sublist can be done with `[ ]`
+
+-   Elements of a list can be named
+
+-   Functions can be applied to the elements of a list with the `*apply()` family of functions
+
+-   Elements of a lists can be filtered by a condition
+
+# Data Frames
+
+**Describe a Data Frame**
+
+-   
+
+-   
+
+-   
+
+## Creating a Data Frame
+
+A data frame can be created using the `data.frame()` method, similar to how you construct a list.
+
+```{r create-a-dataframe}
+df <- data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 22),
+  Score = c(90, 85, 88)
+)
+
+df
+```
+
+We can verify some properties of a data frame
+
+```{r dataframe-properties}
+is.data.frame(df)
+is.list(df)
+typeof(df)
+class(df)
+unclass(df)
+str(df)
+```
+
+## Indexing
+
+Because a data frame is just a list, we can access elements (columns) using both `[[ ]]` and `$`.
+
+```{r dataframe-indexing}
+df[["Name"]]
+df$Age
+df[[3]]
+```
+
+To get a new data frame with select columns, you can use single brackets `[ ]`
+
+```{r dataframe-indexing-single-bracket}
+df[3]
+df["Score"]
+df[1:2]
+df[sort(names(df))]
+df[c(1, 1, 1, 1)]
+df[-2]
+```
+
+You can also index into a data frame in the same way as a matrix. E.g., `[rows, cols]`
+
+```{r df-row-col-index}
+df[, "Age"]
+df[, "Age", drop = FALSE]
+df[c(1, 3), c(1, 3)]
+df[2:3, ]
+df[c(TRUE, FALSE, FALSE), ]
+```
+
+**Questions**
+
+1.  Under what conditions is a vector returned?
+2.  Under what conditions is a data frame returned?
+
+## Subsetting
+
+While we can use `[ ]` to get select rows and columns, we can also use a more readable `subset()` function to filter the rows.
+
+```{r dataframe-subset}
+subset(df, Score > 85)
+```
+
+What is the equivalent `[ ]` expression?
+
+```{r dataframe-subset-using-bracket}
+```
+
+## Modifying a Data Frame
+
+We can add new columns to a data frame
+
+```{r adding-columns}
+df$Passed <- df$Score > 80
+df
+```
+
+## Functions for Data Frames
+
+Since a data frame is just a list, we can use `lapply()` and `sapply()`
+
+```{r df-lapply}
+lapply(df[, 2:3], mean)
+sapply(df[, 2:3], mean)
+```
+
+## Exercises
+
+Can we automatically select just the numeric columns and apply the function?
+
+```{r filter-and-transform}
+```
+
+How does *vector recycling* work for data frames?
+
+```{r vector-recycling}
+```
+
+How can we filter with multiple conditions?
+
+```{r filter-multiple-conditions}
+```
+
+Practice selecting, filtering, and modifying using the `mtcars` data set.
+
+```{r practice-with-mtcars}
+df <- mtcars
+str(df)
+```
