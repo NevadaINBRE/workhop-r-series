@@ -106,7 +106,7 @@ What is the total amount owed after $2$ years on $\$500$ loan with an annual int
 # Mathematical Functions
 
 | Function | Description |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | `abs` | absolute value of a number |
 | `sqrt` | square root of a number |
 | `exp` | $e^x$ |
@@ -274,6 +274,82 @@ You can get a list of variables in the environment in two ways:
 ls()
 ```
 
+# Control Flow
+
+## Conditional Statements
+
+`if`, `else if`, and `else`
+
+These allow us to execute code depending on whether a condition is true or false.
+
+```{r conditionals}
+x <- 10
+
+if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than or equal to 5")
+}
+```
+
+## `for` Loop
+
+A `for` loop allows you to repeat a block of code a specified number of times.
+
+```{r for-loop}
+a <- 0
+b <- 1
+for (i in 1:5) {
+  t <- a + b
+  a <- b
+  b <- t
+  print(paste0("Fib[", i, "]: ", t))
+}
+```
+
+## `while` Loop
+
+A `while` loop repeats code as long as a condition is true.
+
+```{r while-loop}
+x <- 1
+
+# Repeat as long as x is less than or equal to 5
+while (x <= 5) {
+  print(paste("x is:", x))
+  x <- x + 1  # Increment x by 1
+}
+```
+
+## `repeat` Loop
+
+This loop runs indefinitely unless a `break` condition is met.
+
+```{r repeat-loop}
+x <- 1
+
+repeat {
+  print(paste("x is:", x))
+  x <- x + 1
+  if (x > 5) {
+    break  # Exit the loop when x is greater than 5
+  }
+}
+```
+
+## `switch` Statement
+
+The `switch` statement allows for multiple conditions in a cleaner way than using many `if-else` statements.
+
+```{r switch-statement}
+day <- "Monday"
+
+switch(day,
+       "Monday" = print("Start of the week"),
+       "Friday" = print("Almost weekend"),
+       print("Just another day"))
+```
+
 # Data Types
 
 Every object in `R` has a "type"
@@ -411,4 +487,72 @@ round(pi)
 
 ```{r check-double-is-integer}
 
+```
+
+# Functions
+
+Functions in `R` are essential for structuring code in a more reusable, modular, and readable way. To define a function in R, you use the `function()` keyword.
+
+```{r basic-function}
+my_function <- function(arg1, arg2) {
+  result <- arg1 + arg2
+  return(result)
+}
+
+my_function(2, 3)
+```
+
+-   `my_function` is the name of the function.
+
+-   `arg1` and `arg2` are the function's parameters.
+
+-   `return()` returns a value to the caller.
+
+## Default Arguments
+
+Functions can have default arguments.
+
+```{r default-arguments}
+greet <- function(name, greeting="Hi") {
+  print(paste0(greeting, ", ", name, "!"))
+}
+
+greet("Mat")
+greet("Sara", "Good morning")
+```
+
+## Multiple Return Values
+
+Functions in R can return a single value, but it’s common to return a list or a vector if multiple values need to be returned.
+
+```{r multiple-return-values}
+sum_diff <- function(a, b) {
+  sum_result <- a + b
+  diff_result <- a - b
+  return(list(sum = sum_result, difference = diff_result))
+}
+
+sum_diff(10, 7)
+```
+
+## Anonymous Functions
+
+In R, you can create anonymous functions (functions without names) for one-time use. They are typically used in other functions like `apply`, `lapply`, or `sapply`.
+
+```{r anonymous-functions}
+numbers <- c(1, 2, 3, 4)
+sapply(numbers, function(x) x^2)
+```
+
+## Variable Length Arguments
+
+You can create functions that accept a variable number of arguments using the `...` (ellipsis) symbol. In a language like `Julia`, this is called *slurping* and *splatting*.
+
+```{r varargs}
+sum_all <- function(...) {
+  total <- sum(...)
+  return(total)
+}
+
+sum_all(1, 2, 3, 4, 5)
 ```

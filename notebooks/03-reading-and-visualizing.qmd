@@ -8,12 +8,152 @@ execute:
 
 # Reading Data
 
-We can read in data in several ways - some automated and some manually.
+We can read in data in several ways - some automated and some manually. Before reading the data, it's a good idea to view its structure.
 
 ## Viewing the Data
 
+RStudio supports viewing a data set before importing it. When you click on a data file in the `Files` tab of the lower right pane, you will get an option to view or import the data.
+
 ## Importing via RStudio
+
+There are several ways to import data using RStudio.
+
+1.  `File > Import Dataset`
+2.  `Environment > Import Dataset`
+3.  `Files > Click on file`
 
 ## Importing Manually
 
+Structured text files like CSV files can be read using the `read.csv()` method.
+
+```{r read-csv}
+df <- read.csv("../data/simple_csv.csv")
+```
+
+Other read functions include `read.table()`, `read.csv2()` , `read.delim()` , and `read.delim2()`. All of these are different variants of `read.table`, just with different defaults. Use `?read.table` to get an idea of all the possible controls for reading delimited files.
+
+## Reading Excel Files
+
+Reading Excel files can be achieved by using the `readxl` library, and it can be installed and automatically used by using the built in `Import Dataset` functionality of RStudio.
+
+```{r read-xlsx}
+```
+
+## Reading Other Data Types
+
+Many fields will use other data formats which cannot be read using a built in `R` method. In those cases, a package may exist to help read in the data.
+
 # Visualizing Data
+
+R has built-in support for creating graphs of different types.
+
+## Simple Plots
+
+There are a few simple plotting functions in R
+
+-   `plot()`
+    -   also "generic"
+    -   can produce scatter and line plots
+-   `lines()` adds lines to plots
+-   `points()` adds points to plots
+-   `curve()` plots a function over a domain
+    -   can be used alone or "layered" on top of an existing plot
+
+Other types of graphs include
+
+-   `hist()` for histograms
+-   `barplot()`
+-   `boxplot()`
+-   `pie()` for pie charts
+-   `stem()` for stem-and-leaf plot
+
+**Scatter**
+
+```{r scatter-plot}
+plot(mtcars$wt, mtcars$mpg,
+  main = "Scatter plot of MPG vs Weight",
+  xlab = "Weight",
+  ylab = "Miles per Gallon",
+  pch = 19,
+  col = "blue"
+)
+```
+
+**Lines**
+
+```{r line-plot}
+plot(AirPassengers,
+  main = "Monthly Air Passengers",
+  xlab = "Year",
+  ylab = "Number of Passengers",
+  col = "darkgreen",
+  type = "o",
+  pch = 16
+)
+```
+
+**Bar Plot**
+
+```{r bar-plot}
+barplot(table(mtcars$cyl),
+  main = "Car Count by Number of Cylinders",
+  xlab = "Number of Cylinders",
+  ylab = "Count",
+  col = "lightblue",
+  border = "black"
+)
+```
+
+**Histogram**
+
+```{r histogram-plot}
+hist(iris$Sepal.Length,
+  main = "Histogram of Sepal Length",
+  xlab = "Sepal Length",
+  col = "skyblue",
+  border = "white"
+)
+```
+
+**Density**
+
+```{r density-plot}
+plot(density(iris$Sepal.Length),
+  main = "Density Plot of Sepal Length",
+  xlab = "Sepal Length",
+  col = "blue"
+)
+```
+
+**Box Plot**
+
+```{r box-plot}
+boxplot(Sepal.Length ~ Species,
+  data = iris,
+  main = "Boxplot of Sepal Length by Species",
+  xlab = "Species",
+  ylab = "Sepal Length",
+  col = c("lightblue", "lightgreen", "lightcoral")
+)
+```
+
+**Pie Chart**
+
+```{r pie-chart}
+pie(table(mtcars$cyl),
+  main = "Distribution of Cars by Number of Cylinders",
+  col = c("lightblue", "lightgreen", "lightcoral")
+)
+```
+
+## Plotting Curves
+
+Curves can be plotted using the `curve()` method.
+
+```{r plotting-a-curve}
+curve(sin(x),
+  from = -10, to = 10, col = "blue",
+  main = "Plot of sin(x)",
+  xlab = "x", ylab = "sin(x)"
+)
+```
