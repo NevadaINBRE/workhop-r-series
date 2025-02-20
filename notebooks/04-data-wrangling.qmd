@@ -316,6 +316,15 @@ tbl <- tibble(
 # value needs to be another column
 ```
 
+```{r pivot-longer-billboard}
+billboard %>%
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "rank"
+  )
+```
+
 ### **Pivot Wider**
 
 Used to spread values across multiple columns. The opposite of `pivot_longer()`.

@@ -6,3 +6,194 @@ execute:
   eval: false
 ---
 
+```{r setup}
+library(tidyverse)
+```
+
+# Tidying Messy Data
+
+Five most common problems of messy datasets:
+
+1)  Column headers are values, not variable names
+2)  Multiple variables are stored in one column
+3)  Variable names are stored in both rows and columns
+4)  Multiple types of observational units are stored in the same variable
+5)  A single observational unit is stored in multiple tables
+
+A small set of tools can be used to clean most of the problems of messy data:
+
+1)  Melting (pivot longer)
+2)  String manipulation (splitting)
+3)  Casting (pivot wider)
+
+## Guided Example - Billboard Top Hits
+
+### Reading the Data
+
+Let's start by reading in the data using `readr::read_csv().` I'm also going to apply some quick fixes before we begin tidying. Specifically renaming a column, pre-processing `artist`, `time`, and `track`, and arranging the rows by `year`.
+
+```{r reading-billboard}
+df0 <- readr::read_csv("../data/billboard.csv",
+  col_types = cols(time = col_character())
+) %>%
+  select(
+    year, artist.inverted, track, time, genre,
+    date.entered, x1st.week:x76th.week
+  ) %>%
+  rename(artist = artist.inverted) %>%
+  mutate(
+    artist = iconv(artist, "MAC", "ASCII//translit"),
+    time = lubridate::ms(time),
+    track = stringr::str_replace(track, " \\(.*?\\)", "")
+  ) %>%
+  arrange(year, artist, track)
+```
+
+-   What can we do to examine the structure of the data?
+-   What are the column names?
+-   What are the column types?
+-   How many rows and columns are there?
+-   Is there any missing data?
+
+```{r initial-questions}
+```
+
+Is the data in a tidy format? What is wrong?
+
+-   \<answers\>
+
+### Fixing the Column Names
+
+The column names are a bit messy. We can rename them into something a little nicer looking and easier to look at.
+
+```{r fixing-week-columns}
+# manual fix
+names(df0)[-c(1:5)] <- str_c("wk", 1:76)
+```
+
+Below is a more "tidy" way of fixing the names.
+
+```{r fixing-week-columns-regex}
+fix_week_name <- function(name) {
+  return(paste0("wk", str_extract(name, "\\d+")))
+}
+
+df0 <- df0 %>%
+  rename_with(fix_week_name, .cols = ends_with("week"))
+```
+
+### Putting the Data into a Tidy Format
+
+The ranks for each song are stored in multiple `week` columns. We'll need to pivot the data into a longer format.
+
+```{r pivot-billboard-longer}
+```
+
+Pre-coded chunk for reference:
+
+```{r pivot-billboard-longer-precoded}
+df1 <- df0 %>%
+  pivot_longer(
+    cols = wk1:wk76,
+    names_to = "week",
+    values_to = "rank",
+    values_drop_na = TRUE
+  ) %>%
+  mutate(
+    week = str_remove(week, "wk"),
+    week = as.integer(week)
+  )
+```
+
+### Splitting into Songs and Ranks
+
+We can split the data into two datasets: songs and ranks. This is so that each dataset represents a single thing, and they can be joined back together later if needed.
+
+```{r split-songs}
+# select artist, track, and time
+# get unique rows
+# add a unique id (row number)
+```
+
+We can join the songs back with the dataset and then select just the `date.entered` and `rank` columns.
+
+```{r split-ranks}
+# join songs with dataset
+# select the date.entered and rank
+```
+
+Pre-coded chunk for reference:
+
+```{r split-clean-join-precoded}
+song <- df1 %>%
+  select(artist, track, time, year, genre) %>%
+  distinct() %>%
+  mutate(id = row_number()) %>%
+  relocate(id, .before = 1)
+
+rank <- left_join(df1, song) %>%
+  relocate(id, .before = 1) %>%
+  select(id, date.entered, rank, week)
+```
+
+We now have a tidy dataset! Here is the re-combined data.
+
+```{r recombined-data}
+df_full <- inner_join(song, rank, by = "id")
+```
+
+# Visualizing our Tidy Data
+
+**How Many Weeks Do Songs Stay on the Chart?**
+
+```{r}
+ggplot(df_full, aes(x = week)) +
+  geom_histogram(binwidth = 2, fill = "lightblue", color = "black") +
+  labs(
+    title = "Distribution of Weeks on the Billboard Chart",
+    x = "Weeks on Chart",
+    y = "Number of Songs"
+  )
+```
+
+**Most Popular Artists Based on Chart Appearances**
+
+```{r}
+df_full %>%
+  count(artist, sort = TRUE) %>%
+  top_n(10) %>%
+  ggplot(aes(x = reorder(artist, n), y = n, fill = artist)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Top 10 Artists with Most Billboard Chart Appearances",
+    x = "Artist",
+    y = "Number of Songs on Chart"
+  )
+```
+
+**Rank Distribution by Genre**
+
+```{r}
+ggplot(df_full, aes(x = rank, fill = genre)) +
+  geom_density(alpha = 0.5) +
+  scale_x_reverse() +
+  labs(
+    title = "Rank Distribution by Genre",
+    x = "Billboard Rank (1 = Top)",
+    y = "Density"
+  )
+```
+
+**Comparing Weeks on Chart by Genre**
+
+```{r}
+ggplot(df_full, aes(x = genre, y = week, fill = genre)) +
+  geom_boxplot() +
+  coord_flip() +
+  labs(
+    title = "Weeks on Chart by Genre",
+    x = "Genre",
+    y = "Weeks on Chart"
+  )
+```

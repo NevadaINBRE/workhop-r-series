@@ -119,7 +119,7 @@ Let's take some time to explore some of the built-in datasets by creating explor
 **Recommended Datasets**
 
 | Dataset | Description | Best for Visualizations |
-|-----------------|----------------------------|----------------------------|
+|----|----|----|
 | `gapminder` | Country-level economic data | GDP, Life Expectancy, Population trends |
 | `mpg` | Car fuel efficiency | Engine size, MPG comparisons |
 | `diamonds` | Diamond prices & attributes | Price trends, Cut quality comparisons |
