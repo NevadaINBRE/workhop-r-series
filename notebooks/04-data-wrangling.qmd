@@ -1,0 +1,460 @@
+---
+title: "Data Wrangling with dplyr and tidyr"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+
+```{r setup}
+library(tibble)
+library(dplyr)
+library(tidyr)
+```
+
+# The `tidyverse`
+
+The `tidyverse` is a collection of R packages designed for data science that all share an underlying philosophy and common design principles.
+
+**Key Packages**
+
+-   `tibble` for modern data frames with enhanced functionality
+
+-   `readr` for reading and writing data files
+
+-   `dplyr` for data manipulation and transformation (e.g., filtering, summarizing)
+
+-   `tidyr` for tidying and reshaping data
+
+-   `ggplot2` for data visualization
+
+-   `purrr` for functional programming (e.g., working with lists and applying functions)
+
+-   `stringr` for string manipulation
+
+-   `forcats` for working with categorical variables (factors)
+
+## Tibbles
+
+A `tibble` is a modern version of a data frame in `R`, and is the default data frame type in the `tidyverse`. Tibbles are compatible with data frames, but have a few enhancements.
+
+### Compared to a Data Frame
+
+Tibbles display only the first 10 rows and the columns that fit on the screen. Data frames, print the entire dataset by default.
+
+```{r printing-a-tibble}
+as.data.frame(mtcars)
+as_tibble(mtcars) # where did the row names go?
+```
+
+Tibbles do not automatically convert character vectors into factors, whereas `R` prior to version 4 used to read strings as factors by default.
+
+```{r strings-as-factors}
+# old behavior
+read.csv("../data/billboard.csv", stringsAsFactors = TRUE)
+# new behavior
+read.csv("../data/billboard.csv")
+# tibble returned by readr
+readr::read_csv("../data/billboard.csv")
+```
+
+When selecting a single column from a tibble, another tibble is returned. A data frame may return a vector when a single column is selected.
+
+```{r tibble-single-column}
+df <- mtcars
+tbl <- as_tibble(mtcars, rownames = "make-model")
+
+df[, "mpg"]
+tbl[, "mpg"]
+```
+
+Tibbles allow non-syntactic column names (e.g., names with spaces or starting with numbers), while data frames require column names to follow R's naming conventions.
+
+```{r tibble-column-names}
+data.frame("Column 1" = 1:3, "123column" = 4:6)
+tibble("Column 1" = 1:3, "123column" = 4:6)
+```
+
+Tibbles are strict; they complain more often which can help catch bugs. E.g., if you try to create a tibble with mismatched column lengths, it will throw an error. Prior to version 4.0, a data frame would automatically recycle values.
+
+```{r tibble-strictness}
+data.frame(A = 1:3, B = 1:2)
+tibble(A = 1:3, B = 1:2)
+```
+
+## dplyr
+
+`dplyr` provides a set of functions to manipulate data frames and tibbles. From the docs:
+
+> `dplyr` is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+>
+> -   `mutate()` adds new variables that are functions of existing variables
+>
+> -   `select()` picks variables based on their names
+>
+> -   `filter()` picks cases based on their values
+>
+> -   `summarise()` reduces multiple values down to a single summary
+>
+> -   `arrange()` changes the ordering of the rows
+
+## tidyr
+
+**`tidyr`** helps reshape data, making it "tidy"—that is, ensuring each variable is a column, each observation is a row, and each value is a cell.
+
+The [tidyr docs](https://tidyr.tidyverse.org/index.html) are a great resource for learning about tidy data, especially the vignette on [tidy data](https://tidyr.tidyverse.org/articles/tidy-data.html). From the vignette:
+
+> Tidy datasets and tidy tools work hand in hand to make data analysis easier, allowing you to focus on the interesting domain problem, not on the uninteresting logistics of data.
+
+## Non-Standard Evaluation (NSE)
+
+One last point before we begin, tidyverse verbs often use *non-standard evaluation*. Without going into too much detail, this allows you to use the names of columns **unquoted** inside of verbs.
+
+```{r non-standard-evaluation}
+mtcars %>% select(mpg, hp)
+```
+
+# Data Wrangling
+
+Introducing the pipe operator `%>%` provided by the `magrittr` package and made available by almost every other `tidyverse` package. It takes the left hand side and inserts it into the function on the right.
+
+```{r pipe-operator}
+# simple pipe
+3.14 %>% sin()
+0.717 %>% cos()
+
+# can put RHS into any location using '.' placeholder
+5 %>% seq(from = 1, to = .)
+
+# can chain pipes for easier reading
+mtcars %>%
+  group_by(cyl) %>%
+  select(cyl, mpg, disp, hp) %>%
+  summarize(across(where(is.double), mean))
+```
+
+As of `R 4.1` there is a native pipe operator, `|>`. It largely works the same way as `%>%`. One can argue that `%>%` is better because it can be used in versions of R `<4.1`, thus being more compatible with older systems.
+
+I will not speak to which is better, but I will continue to use `%>%` because of muscle memory.
+
+## dplyr Verbs - Select, Filter, Mutate
+
+### **Selecting Columns**
+
+Use `select()` to keep or remove specific columns.
+
+```{r selecting-columns}
+# Select only mpg, cyl, and hp columns
+
+# Remove the wt and qsec columns
+
+# Select columns using a range
+```
+
+**Exercise:** Select only the `mpg`, `hp`, and `gear` columns from `mtcars`.
+
+```{r select-exercise}
+```
+
+### **Filtering Rows**
+
+Use `filter()` to subset rows based on one or more conditions.
+
+```{r filtering-rows}
+# Select cars with mpg greater than 25
+
+# Select cars with 4 cylinders and mpg greater than 20
+
+# Select cars with either 4 or 6 cylinders
+```
+
+**Exercise:** Find all cars with horsepower greater than 150 and weight less than 3.
+
+### **Creating New Columns**
+
+Use `mutate()` to add new variables or modify existing ones.
+
+```{r mutating-columns}
+# Create a new column for power-to-weight ratio
+
+# Convert weight from tons to kilograms
+# 453.592 kg per ton
+```
+
+**Exercise 1:** Create a new column that categorizes cars as `"High MPG"` if `mpg > 20` and `"Low MPG"` otherwise using `mutate()` and `ifelse()`.
+
+**Exercise 2**: Write a function that classifies a car as `"High MPG"`, `"Med MPG"`, and `"Low MPG"` if the MPG is `>=25`, `>=20`, and `<20` respectively.
+
+### **Sorting Rows by Columns**
+
+Use `arrange()` to order rows by one or more variables.
+
+```{r sorting-rows}
+# Arrange data in ascending order of mpg
+
+# Arrange data in descending order of horsepower
+
+# Arrange by multiple columns: mpg (ascending), then hp (descending)
+```
+
+**Exercise:** Sort `mtcars` by `cyl` (ascending) and `mpg` (descending). 
+
+## Grouping and Summarizing
+
+Use `group_by()` to group data by one or more variables, and `summarize()` to compute summary statistics. The "group by and summarize" pattern is very common.
+
+```{r group-by-and-summarize}
+# Calculate average mpg for each cylinder group
+
+# Count the number of cars in each cylinder group
+
+# Calculate the average mpg and max horsepower for each cylinder
+```
+
+Note: I like to have one verb per line to make my code more readable.
+
+## Other dplyr Verbs
+
+### **Counting Rows**
+
+Use `count()` as a shortcut for `group_by()` + `summarize(n())`.
+
+```{r counting-rows}
+# Count occurrences of each cylinder category
+
+# Count occurrences of each gear category
+```
+
+**Exercise:** Count the number of cars for each `cyl` and `gear` combination.
+
+```{r counting-exercise}
+```
+
+### **Removing Duplicates**
+
+Use `distinct()` to get unique rows based on selected columns.
+
+```{r distinct-rows}
+# Get unique cylinder values
+
+# Get unique combinations of cyl and gear
+```
+
+**Exercise:** Find the unique combinations of `cyl` and `am` (automatic/manual transmission).
+
+```{r distinct-exercise}
+```
+
+### **Renaming Columns**
+
+Use `rename()` to give columns more meaningful names. This can be especially helpful when polishing a table for publication.
+
+```{r renaming-columns}
+# Rename mpg to Miles_per_Gallon
+
+# Rename multiple columns
+```
+
+**Exercise:** Rename `disp` to `"Displacement"` and `drat` to `"Rear_Axle_Ratio"`.
+
+```{r renaming-exercise}
+```
+
+### **Relocating Columns**
+
+Use `relocate()` to move columns to a new position.
+
+```{r relocating-columns}
+# Move mpg to the first column
+
+# Move hp before mpg
+```
+
+**Exercise:** Move the `gear` column to be the first column.
+
+```{r relocating-exercise}
+```
+
+## Putting it all Together
+
+```{r all-together}
+mtcars %>%
+  filter(mpg > 20) %>%
+  select(mpg, cyl, hp, wt) %>%
+  mutate(power_to_weight = hp / wt) %>%
+  arrange(desc(power_to_weight))
+```
+
+## Reshaping
+
+`tidyr` is used for reshaping and cleaning datasets. It helps transform data between *wide* and *long* formats, handle missing values, and make datasets "tidy"—where each variable has its own column, each observation has its own row, and each value has its own cell.
+
+**Key Functions**
+
+-   `pivot_longer()`
+
+-   `pivot_wider()`
+
+-   `separate()`
+
+-   `unite()`
+
+### **Pivot Longer**
+
+Used when multiple columns contain the same type of information. We need to gather them into two columns (one for variable names, one for values).
+
+```{r pivot-longer}
+# sales in each year among different groups
+tbl <- tibble(
+  id = c(1, 2, 3),
+  year_2020 = c(100, 200, 300),
+  year_2021 = c(150, 250, 350)
+)
+
+# "year" information in the columns
+# year needs to be its own column
+# value needs to be another column
+```
+
+### **Pivot Wider**
+
+Used to spread values across multiple columns. The opposite of `pivot_longer()`.
+
+```{r pivot-wider}
+finances <- tibble(
+  id = c(1, 1, 2, 2),
+  year = c("2020", "2021", "2020", "2021"),
+  sales = c(100, 150, 200, 250)
+)
+
+# put into "wider" format by year
+```
+
+### **Separating Columns**
+
+Sometimes the data in a column can be split up into new columns. This can be done using the `separate()` function.
+
+```{r separate-column}
+# Example dataset
+data <- tibble(
+  full_date = c("2023-01-01", "2023-02-01", "2023-03-01")
+)
+
+# Separate the column into year, month, and day
+```
+
+### **Unite Columns Together**
+
+Opposite of separating columns is `unite()` which joins the data of two columns together into a single column.
+
+```{r unite-columns}
+data <- tibble(
+  year = c("2023", "2024"),
+  month = c("01", "02"),
+  day = c("15", "20")
+)
+
+# Combine into a full_date column
+```
+
+## Handling NA Values
+
+`tidyr` also supports handling missing (`NA`) values.
+
+-   `drop_na()`
+
+-   `replace_na()`
+
+-   `fill()`
+
+```{r handling-missing-data}
+tb <- readr::read_csv("../data/tb.csv")
+glimpse(tb)
+
+# see how much of the data is missing
+tb %>%
+  summarize(across(everything(), ~ mean(is.na(.)))) %>%
+  pivot_longer(
+    everything(),
+    names_to = "Column",
+    values_to = "Prop. NA"
+  )
+
+# select the top 5 most represented columns and drop NA
+```
+
+## Joining Datasets
+
+Data can come from multiple sources, and it is a common task to join the data into a single dataset. There are several types of joins that are intended for different scenarios:
+
+-   `left_join()`
+
+-   `right_join()`
+
+-   `inner_join()`
+
+-   `full_join()`
+
+-   `semi_join()`
+
+-   `anti_join()`
+
+Let's look at some examples using a made up data relating employees to departments.
+
+```{r join-data}
+employees <- tibble(
+  emp_id = c(1, 2, 3, 4, 5),
+  name = c("Alice", "Bob", "Charlie", "David", "Ellie"),
+  dept_id = c(101, 102, 103, 104, 101)
+)
+
+departments <- tibble(
+  dept_id = c(101, 102, 105),
+  dept_name = c("HR", "Finance", "IT")
+)
+
+employees
+departments
+```
+
+Note: See the `dplyr` [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf) for a handy infographic detailing the various joins.
+
+### **Left Join**
+
+Keeps all rows from the left dataset (`employees`), adding matching columns from `departments`.
+
+```{r left-join}
+```
+
+### **Right Join**
+
+Keeps all rows from the right dataset (`departments`), adding matching columns from `employees`.
+
+```{r right-join}
+```
+
+### **Inner Join**
+
+Keeps only rows where there is a match in both datasets.
+
+```{r inner-join}
+```
+
+### **Full Join**
+
+Keeps all rows from both datasets, filling missing values with `NA`.
+
+```{r full-join}
+```
+
+### Which Join Should You Use?
+
+-   Use **`left_join()`** when your primary dataset is on the left and you don’t want to lose any rows
+
+-   Use **`inner_join()`** when you only care about rows that have a match in both datasets
+
+-   Use **`full_join()`** when you want to retain all information from both datasets
+
+-   Use **`semi_join()`** if you just want to filter `employees` to those that match `departments`
+
+-   Use **`anti_join()`** to find rows in `employees` that *don’t* have a match in `departments`

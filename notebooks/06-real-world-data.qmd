@@ -1,0 +1,8 @@
+---
+title: "Applying tidyverse and ggplot2 in Real-World Scenarios"
+format: html
+editor: visual
+execute:
+  eval: false
+---
+

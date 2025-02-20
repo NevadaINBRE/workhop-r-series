@@ -106,7 +106,7 @@ What is the total amount owed after $2$ years on $\$500$ loan with an annual int
 # Mathematical Functions
 
 | Function | Description |
-|:-----------------------------------|:-----------------------------------|
+|:---|:---|
 | `abs` | absolute value of a number |
 | `sqrt` | square root of a number |
 | `exp` | $e^x$ |
@@ -555,4 +555,73 @@ sum_all <- function(...) {
 }
 
 sum_all(1, 2, 3, 4, 5)
+```
+
+## Exercises
+
+The Huber loss function (or just Huber function, for short) is defined as:
+
+$$
+\psi(x) = \begin{cases}
+x^2 & \text{if } |x| \leq 1 \\
+2|x| - 1 & \text{if } |x| > 1
+\end{cases}
+$$
+
+```{r huber-function-1}
+
+```
+
+The Huber function can be modified so that the transition from quadratic to linear happens at an arbitrary cutoff value $a$, as in:
+
+$$
+\psi_a(x) = \begin{cases}
+x^2 & \text{if } |x| \leq a \\
+2a|x| - a^2 & \text{if } |x| > a 
+\end{cases}
+$$
+
+Update the `huber()` function so that it takes two arguments: $x$ - a number at which to evaluate the loss, and $a$ - a number representing the cutoff value.
+
+Check that `huber(3, 2)` returns 8, and `huber(3, 4)` returns 9.
+
+```{r huber-function-2}
+
+```
+
+Update the `huber()` function so that the default value of the cutoff is 1. Check that `huber(3)` returns 5.
+
+```{r huber-function-3}
+
+```
+
+What does `huber(a=1, x=3)`? What does `huber(1, 3)` return? Why are these different?
+
+```{r calling-huber}
+huber(a = 1, x = 3)
+huber(1, 3)
+```
+
+## Function Conflicts
+
+Sometimes two packages will export two different functions by the same name. When this happens, we get what is called a *namespace* conflict. In those cases (and in general), it is best to be explicit about which package's function you are using.
+
+```{r namespace-conflict}
+# observe the 'onload' message
+library(dplyr)
+```
+
+-   It says that it's masked the object `filter` from `package:stats`
+-   `stats` is a default R library that is available on startup
+-   `dplyr` also exports an object called `filter` and overwrites it in the *namespace*
+
+```{r wrong-function-called}
+# This should work for time series
+x <- 1:100
+filter(x, rep(1, 3))
+```
+
+```{r fix-namespace-conflict}
+# fix the above error by being explicit about the namespace
+
 ```
