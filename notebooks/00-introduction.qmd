@@ -44,7 +44,7 @@ execute:
 -   Indexing and subsetting
 -   Basic summary functions
 
-#### Excercises
+#### Exercises
 
 -   Load a sample data set
 -   Read a CSV file and explore it
@@ -63,10 +63,10 @@ execute:
 -   Sorting data
 -   Quick visualizations with `plot()`, `hist()`, and `boxplot()`
 
-#### Excercises
+#### Exercises
 
 -   Filter and sort data
--   Create a histogram or scatterplot
+-   Create a histogram or scatter plot
 
 ## Digging Deeper with Tidyverse
 
@@ -99,12 +99,12 @@ execute:
 -   Structure of `ggplot2`
 -   Common geoms
     -   `geom_point()`, `geom_bar()`, `geom_histogram()`, `geom_line()`
--   Customizing aesthetics (colors, shaps, sizes)
+-   Customizing aesthetics (colors, shapes, sizes)
 -   Adding labels, themes, and facets
 
 #### Excercises
 
--   Create scatterplots and bar charts
+-   Create scatter plots and bar charts
 -   Modify themes and aesthetics
 
 ### Applying `tidyverse` in Real-World Scenarios
@@ -118,6 +118,6 @@ execute:
 -   Case study: Analyzing a dataset
 -   Combining `dplyr` and `ggplot2` for analysis
 
-#### Excercises
+#### Exercises
 
--   Perfrom an end-to-end analysis with data manipulation and visualization
+-   Perform an end-to-end analysis with data manipulation and visualization

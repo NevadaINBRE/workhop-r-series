@@ -144,7 +144,7 @@ The layout can be modified by opening the `Tools > Global Options > pane layout`
 ## Shortcuts
 
 | Name | Shortcut | Description |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Command Palette | `Ctrl + Shift + P` | Opens the command palette to quickly run commands |
 | Build Project | `Ctrl + Shift + B` | Builds the current project if it is supported |
 | Run Current Chunk | `Ctrl + Shift + Enter` | Runs the entire code chunk at the cursor location |

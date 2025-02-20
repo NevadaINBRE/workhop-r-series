@@ -1,7 +1,6 @@
 ---
 title: "Hands-On Basics"
 format: html
-number-sections: true
 editor: visual
 execute:
   eval: false
@@ -350,6 +349,16 @@ switch(day,
        print("Just another day"))
 ```
 
+## Exercise
+
+Fizz Buzz!
+
+> **Fizz buzz** is a group word game for children to teach them about division. Players take turns to count incrementally, replacing any number divisible by three with the word "fizz", and any number divisible by five with the word "buzz", and any number divisible by both three and five with the word "fizzbuzz".
+
+```{r fizz-buzz}
+
+```
+
 # Data Types
 
 Every object in `R` has a "type"
@@ -602,7 +611,7 @@ huber(a = 1, x = 3)
 huber(1, 3)
 ```
 
-## Function Conflicts
+## Function Name Conflicts
 
 Sometimes two packages will export two different functions by the same name. When this happens, we get what is called a *namespace* conflict. In those cases (and in general), it is best to be explicit about which package's function you are using.
 
