@@ -5,3 +5,126 @@ editor: visual
 execute:
   eval: false
 ---
+
+```{r setup}
+library(tidyverse)
+```
+
+# Introduction to `ggplot2`
+
+`ggplot2` is built on the *grammar of graphics*, which is a structured framework to create statistical graphs.
+
+**Key Concepts**
+
+The grammar of graphics breaks down a graph into fundamental components:
+
+-   Data – The dataset being visualized
+
+-   Aesthetics – The mapping between data variables and visual properties
+
+-   Geometries – The type of geometric object used to represent data
+
+-   Scales – Transformations that map data values to aesthetic attributes
+
+-   Statistics – Statistical transformations applied to the data before plotting (e.g., smoothing, binning)
+
+-   Coordinates – The coordinate system used
+
+-   Facets – The method of splitting data into subplots (small multiples) for comparison
+
+The library `ggplot2` follows a simple formula:
+
+```         
+ggplot(data = <data>, aes(x = <col1>, y = <col2>)) +
+  geom_*()
+```
+
+The aesthetics (`aes`) can be specified on whole-plot basis (within the `ggplot()` function) or on a layer basis (`geom_*(aes(x = <col1>, y = <col2>))`).
+
+## Common Geoms
+
+### Scatter Plots
+
+```{r geom-point}
+# plot the "mtcars" data of mpg vs hp
+```
+
+We can control the size, shape, and color of the points. We can even set the color according to other variables.
+
+```{r geom-point-colored}
+ggplot(mtcars, aes(x = hp, y = mpg, color = factor(cyl), size = wt)) +
+  geom_point()
+```
+
+### Bar Charts
+
+```{r bar-chart}
+# plot the "diamonds" data of cut quality
+```
+
+We can change the `y`-axis to show proportions by computing the proportion and using `geom_col()`.
+
+```{r bar-chart-proportion}
+diamonds %>%
+  group_by(cut) %>%
+  summarise(proportion = n() / nrow(diamonds)) %>%
+  ggplot(aes(x = cut, y = proportion)) +
+  geom_col()
+```
+
+### Line Plots
+
+```{r line-plots}
+# plot the "economics" data of unemployment over time
+```
+
+### Box Plots
+
+```{r box-plots}
+# plot the "mtcars" data of mpg vs cylinders
+```
+
+### Histogram and Density Plots
+
+## Customizing the Plots
+
+### Adding Titles, Labels, and Themes
+
+```{r titles-labels-themes}
+# add titles, axis labels, and change the theme
+ggplot(mtcars, aes(x = hp, y = mpg, color = factor(cyl))) +
+  geom_point()
+```
+
+### Faceting
+
+```{r faceting}
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  facet_wrap(~cyl)
+```
+
+### Colors and Scales
+
+```{r colors-and-scales}
+ggplot(mtcars, aes(x = hp, y = mpg, color = factor(cyl))) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1")
+```
+
+# Exploring Datasets
+
+Let's take some time to explore some of the built-in datasets by creating exploratory and explanatory plots.
+
+**Recommended Datasets**
+
+| Dataset | Description | Best for Visualizations |
+|-----------------|----------------------------|----------------------------|
+| `gapminder` | Country-level economic data | GDP, Life Expectancy, Population trends |
+| `mpg` | Car fuel efficiency | Engine size, MPG comparisons |
+| `diamonds` | Diamond prices & attributes | Price trends, Cut quality comparisons |
+| `iris` | Flower measurements | Sepal vs Petal dimensions, Species classification |
+| `economics` | US Economic data | Unemployment trends, Population growth |
+| `airquality` | New York air pollution (1973) | Temperature vs Ozone, Time series trends |
+| `ChickWeight` | Chicken growth under diets | Weight gain comparisons over time |
+| `penguins` | Penguin species & body sizes | Species-based comparisons, Bill length vs depth |
